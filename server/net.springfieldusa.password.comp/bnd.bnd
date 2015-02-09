@@ -1,0 +1,11 @@
+Bundle-Version: 0.0.0.${tstamp}
+javac.source: 1.8
+javac.target: 1.8
+-buildpath:  \
+	osgi.cmpn;version=5.0,\
+	net.springfieldusa.password.api;version=latest,\
+	net.springfieldusa.comp;version=latest
+Private-Package:  \
+	net.springfieldusa.password.comp
+-dsannotations:  \
+	*

@@ -1,0 +1,12 @@
+Bundle-Version: 0.0.0.${tstamp}
+javac.source: 1.8
+javac.target: 1.8
+-buildpath:  \
+	osgi.cmpn;version=5.0,\
+	org.eclipselabs.emongo.api,\
+	org.mongodb.mongo-java-driver,\
+	net.springfieldusa.credentials.api;version=latest
+Private-Package:  \
+	net.springfieldusa.credentials.comp
+-dsannotations:  \
+	*

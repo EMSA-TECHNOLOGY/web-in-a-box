@@ -1,0 +1,12 @@
+Bundle-Version: 0.0.0.${tstamp}
+javac.source: 1.8
+javac.target: 1.8
+-buildpath:  \
+	com.eclipsesource.jaxrs.provider.security,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	osgi.cmpn;version=5.0,\
+	net.springfieldusa.security.api;version=latest
+-dsannotations:  \
+	*
+Private-Package:  \
+	net.springfieldusa.web.security

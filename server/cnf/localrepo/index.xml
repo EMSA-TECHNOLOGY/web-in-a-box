@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<repository increment="1423349273112" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="78cb19c59515a63dea5b7e87914883f8c7b5dcaae604b8066bea40624be45e1a"/>
+      <attribute name="url" value="org.mongodb.mongo-java-driver/org.mongodb.mongo-java-driver-2.13.0.jar"/>
+      <attribute name="size" type="Long" value="603773"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.mongodb"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.mongodb.io"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.mongodb.util"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.mongodb.gridfs"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.bson"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.bson.util"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.bson.util.annotations"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.bson.types"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.bson.io"/>
+      <attribute name="version" type="Version" value="2.13.0.RELEASE"/>
+      <attribute name="bundle-symbolic-name" value="org.mongodb.mongo-java-driver"/>
+      <attribute name="bundle-version" type="Version" value="2.13.0.RELEASE"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.management)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.net)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.net.ssl)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.security.sasl)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.security.auth.login)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.security.auth)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.ietf.jgss)"/>
+    </requirement>
+  </resource>
+</repository>

@@ -1,0 +1,10 @@
+Bundle-Version: 0.0.0.${tstamp}
+javac.source: 1.8
+javac.target: 1.8
+-buildpath:  \
+	osgi.cmpn;version=5.0,\
+	osgi.core;version=5.0
+Export-Package:  \
+	net.springfieldusa.comp
+-dsannotations:  \
+	*
