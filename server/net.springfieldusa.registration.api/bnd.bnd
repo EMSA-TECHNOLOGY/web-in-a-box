@@ -1,7 +1,8 @@
 Bundle-Version: 0.0.0.${tstamp}
 javac.source: 1.8
 javac.target: 1.8
--buildpath:  \
-	net.springfieldusa.credentials.api;version=latest
+-buildpath: \
+	net.springfieldusa.credentials.api;version=latest,\
+	net.springfieldusa.password.api;version=latest
 Export-Package:  \
 	net.springfieldusa.registration
