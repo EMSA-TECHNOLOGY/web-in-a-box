@@ -70,7 +70,7 @@ public class UserRegistrationResource
 	}
 
 	@Reference(unbind = "-")
-	public void bindUserService(UserRegistrationService userRegistrationService)
+	public void bindUserRegistrationService(UserRegistrationService userRegistrationService)
 	{
 		this.userRegistrationService = userRegistrationService;
 	}

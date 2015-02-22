@@ -81,7 +81,7 @@ public class CredentialsComponent implements CredentialsService
 	}
 
 	@Reference(unbind = "-")
-	public void bindSecurityService(PasswordService passswordService)
+	public void bindPasswordService(PasswordService passswordService)
 	{
 		this.passwordService = passswordService;
 	}

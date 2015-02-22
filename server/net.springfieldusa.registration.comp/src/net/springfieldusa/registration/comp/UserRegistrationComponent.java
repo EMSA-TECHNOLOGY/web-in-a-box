@@ -67,7 +67,7 @@ public class UserRegistrationComponent implements UserRegistrationService
 	}
 
 	@Reference(unbind = "-")
-	public void bindSecurityService(PasswordService passwordService)
+	public void bindPasswordService(PasswordService passwordService)
 	{
 		this.passwordService = passwordService;
 	}
