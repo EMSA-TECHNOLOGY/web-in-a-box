@@ -29,7 +29,10 @@ public class User implements Principal
   @Override
   public boolean equals(Object obj)
   {
-    return name.equals(obj);
+    if(obj instanceof User)
+      return name.equals(((User) obj).name);
+    
+    return false;
   }
 
   @Override

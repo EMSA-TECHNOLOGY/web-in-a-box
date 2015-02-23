@@ -21,6 +21,7 @@ package net.springfieldusa.comp;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
 
 /**
@@ -29,8 +30,9 @@ import org.osgi.service.log.LogService;
  */
 public abstract class AbstractComponent
 {
-	private AtomicReference<LogService> logServiceReference;
+	private AtomicReference<LogService> logServiceReference = new AtomicReference<>();
 
+	@Reference
 	public void bindLogService(LogService logService)
 	{
 		logServiceReference.set(logService);

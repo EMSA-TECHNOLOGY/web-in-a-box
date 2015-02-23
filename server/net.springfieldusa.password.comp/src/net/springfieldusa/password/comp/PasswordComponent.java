@@ -41,7 +41,7 @@ import org.osgi.service.log.LogService;
  * 
  */
 @Component(service = PasswordService.class)
-public class PasswodComponent extends AbstractComponent implements PasswordService
+public class PasswordComponent extends AbstractComponent implements PasswordService
 {
   private volatile int numberEncryptionIterations = 20000;
   private volatile int derivedKeyLength = 160;
@@ -56,8 +56,8 @@ public class PasswodComponent extends AbstractComponent implements PasswordServi
   {
     try
     {
-      secureRandom = SecureRandom.getInstance("SHA1PRNG");
-      secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+      secureRandom = createSecureRandom();
+      secretKeyFactory = createSecretKeyFactory();
     }
     catch (NoSuchAlgorithmException e)
     {
@@ -95,5 +95,15 @@ public class PasswodComponent extends AbstractComponent implements PasswordServi
   {
     byte[] enctyptedPassword = encryptPassword(password, salt);
     return Arrays.equals(enctyptedPassword, targetPassword);
+  }
+
+  protected SecretKeyFactory createSecretKeyFactory() throws NoSuchAlgorithmException
+  {
+    return SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+  }
+
+  protected SecureRandom createSecureRandom() throws NoSuchAlgorithmException
+  {
+    return SecureRandom.getInstance("SHA1PRNG");
   }
 }
