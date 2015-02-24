@@ -41,7 +41,12 @@ import com.mongodb.DBObject;
 @Component(service = CredentialsService.class)
 public class CredentialsComponent implements CredentialsService
 {
-	private static final String CREDENTIALS = "credentials";
+	private static final String KEY_UPDATED_ON = "updatedOn";
+  private static final String KEY_PASSWORD = "password";
+  private static final String KEY_SALT = "salt";
+  private static final String KEY_EMAIL = "email";
+  private static final String CREDENTIALS = "credentials";
+  
 	private volatile MongoDatabaseProvider credentialsDatabaseProvider;
 	private volatile PasswordService passwordService;
 
@@ -53,10 +58,10 @@ public class CredentialsComponent implements CredentialsService
 		byte[] salt = passwordService.createSalt();
 
 		DBObject data = new BasicDBObject();
-		data.put("email", credential.getEmail());
-		data.put("salt", salt);
-		data.put("password", passwordService.encryptPassword(credential.getPassword(), salt));
-		data.put("updatedOn", new Date());
+		data.put(KEY_EMAIL, credential.getEmail());
+		data.put(KEY_SALT, salt);
+		data.put(KEY_PASSWORD, passwordService.encryptPassword(credential.getPassword(), salt));
+		data.put(KEY_UPDATED_ON, new Date());
 
 		credentialsDatabaseProvider.getDB().getCollection(CREDENTIALS).insert(data);
 	}
@@ -65,10 +70,10 @@ public class CredentialsComponent implements CredentialsService
   public Principal authenticate(String email, String password) throws EncryptionException
   {
     DBObject filter = new BasicDBObject();
-    filter.put("email", email);
+    filter.put(KEY_EMAIL, email);
     DBObject credential = credentialsDatabaseProvider.getDB().getCollection(CREDENTIALS).findOne(filter);
     
-    if(passwordService.validatePassword(password, (byte[]) credential.get("password"), (byte[]) credential.get("salt")))
+    if(passwordService.validatePassword(password, (byte[]) credential.get(KEY_PASSWORD), (byte[]) credential.get(KEY_SALT)))
       return new User(email);
     
     return null;
