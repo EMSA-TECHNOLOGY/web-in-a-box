@@ -69,8 +69,7 @@ public class CredentialsComponent implements CredentialsService
   @Override
   public Principal authenticate(String email, String password) throws EncryptionException
   {
-    DBObject filter = new BasicDBObject();
-    filter.put(KEY_EMAIL, email);
+    DBObject filter = new BasicDBObject(KEY_EMAIL, email);
     DBObject credential = credentialsDatabaseProvider.getDB().getCollection(CREDENTIALS).findOne(filter);
     
     if(passwordService.validatePassword(password, (byte[]) credential.get(KEY_PASSWORD), (byte[]) credential.get(KEY_SALT)))
@@ -86,8 +85,8 @@ public class CredentialsComponent implements CredentialsService
 	}
 
 	@Reference(unbind = "-")
-	public void bindPasswordService(PasswordService passswordService)
+	public void bindPasswordService(PasswordService passwordService)
 	{
-		this.passwordService = passswordService;
+		this.passwordService = passwordService;
 	}
 }

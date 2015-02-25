@@ -6,7 +6,10 @@ javac.target: 1.8
 	org.eclipselabs.emongo.api,\
 	org.mongodb.mongo-java-driver,\
 	net.springfieldusa.credentials.api;version=latest,\
-	net.springfieldusa.password.api;version=latest
+	net.springfieldusa.password.api;version=latest,\
+	junit;version=4.11,\
+	hamcrest-core,\
+	org.mockito.mockito-all
 Private-Package:  \
 	net.springfieldusa.credentials.comp
 -dsannotations:  \
