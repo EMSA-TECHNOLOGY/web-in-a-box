@@ -4,7 +4,7 @@ Bundle-Version: 0.0.0.${tstamp}
 	net.springfieldusa.credentials.api;version=latest,\
 	net.springfieldusa.registration.api;version=latest,\
 	net.springfieldusa.password.api;version=latest,\
-	javax.ws.rs-api;version=2.0
+	com.eclipsesource.jaxrs.jersey-all
 Private-Package:  \
 	net.springfieldusa.web.registration
 -dsannotations:  \

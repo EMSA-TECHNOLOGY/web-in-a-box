@@ -2,7 +2,7 @@ Bundle-Version: 0.0.0.${tstamp}
 -buildpath: \
 	osgi.cmpn;version=5.0,\
 	com.googlecode.json-simple,\
-	javax.ws.rs-api;version=2.0
+	com.eclipsesource.jaxrs.jersey-all
 Private-Package:  \
 	net.springfielduwa.web.json
 -dsannotations:  \
