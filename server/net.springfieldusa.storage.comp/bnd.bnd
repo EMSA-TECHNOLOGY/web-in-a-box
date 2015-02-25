@@ -1,6 +1,4 @@
 Bundle-Version: 0.0.0.${tstamp}
-javac.source: 1.8
-javac.target: 1.8
 -buildpath:  \
 	net.springfieldusa.storage.api;version=latest,\
 	org.mongodb.mongo-java-driver,\

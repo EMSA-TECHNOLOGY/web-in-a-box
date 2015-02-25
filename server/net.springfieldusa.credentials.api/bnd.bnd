@@ -3,5 +3,3 @@ Export-Package:  \
 	net.springfieldusa.credentials
 -buildpath:  \
 	net.springfieldusa.password.api;version=latest
-javac.source: 1.8
-javac.target: 1.8
