@@ -27,8 +27,8 @@ import com.mongodb.DBObject;
 
 public class TestCredentialsComponent
 {
-  private PasswordService passwordService;
   private CredentialsComponent credentialsComponent;
+  private PasswordService passwordService;
   private MongoDatabaseProvider mongoDatabaseProvider;
   private DB db;
   private DBCollection collection;
