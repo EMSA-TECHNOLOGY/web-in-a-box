@@ -24,6 +24,7 @@ import java.util.Date;
 
 import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.credentials.CredentialsService;
+import net.springfieldusa.mongodb.comp.MongoDBComponent;
 import net.springfieldusa.password.EncryptionException;
 import net.springfieldusa.password.PasswordService;
 
@@ -40,7 +41,7 @@ import com.mongodb.DBObject;
  * 
  */
 @Component(service = CredentialsService.class)
-public class CredentialsComponent implements CredentialsService
+public class CredentialsComponent extends MongoDBComponent implements CredentialsService
 {
 	private static final String KEY_UPDATED_ON = "updatedOn";
   private static final String KEY_PASSWORD = "password";
@@ -51,7 +52,6 @@ public class CredentialsComponent implements CredentialsService
   private static final String KEY_GROUP_NAME = "_id";
   private static final String KEY_GROUP_MEMBERS = "members";
   
-	private volatile MongoDatabaseProvider credentialsDatabaseProvider;
 	private volatile PasswordService passwordService;
 
 	@Override
@@ -67,7 +67,7 @@ public class CredentialsComponent implements CredentialsService
 		data.put(KEY_PASSWORD, passwordService.encryptPassword(credential.getPassword(), salt));
 		data.put(KEY_UPDATED_ON, new Date());
 
-		credentialsDatabaseProvider.getDB().getCollection(CREDENTIALS).insert(data);
+		getCollection(CREDENTIALS).insert(data);
 	}
 
   @Override
@@ -78,7 +78,7 @@ public class CredentialsComponent implements CredentialsService
     DBObject group = new BasicDBObject(2);
     group.put(KEY_GROUP_NAME, name);
     group.put(KEY_GROUP_MEMBERS, new BasicDBList());
-    credentialsDatabaseProvider.getDB().getCollection(GROUPS).insert(group);
+    getCollection(GROUPS).insert(group);
   }
 
   @Override
@@ -86,14 +86,14 @@ public class CredentialsComponent implements CredentialsService
   {
     DBObject query = new BasicDBObject(KEY_GROUP_NAME, group);
     DBObject value = new BasicDBObject("$push", new BasicDBObject(KEY_GROUP_MEMBERS, principal.getName()));
-    credentialsDatabaseProvider.getDB().getCollection(GROUPS).update(query, value);
+    getCollection(GROUPS).update(query, value);
   }
 
   @Override
   public Principal authenticate(String email, String password) throws EncryptionException
   {
     DBObject filter = new BasicDBObject(KEY_EMAIL, email);
-    DBObject credential = credentialsDatabaseProvider.getDB().getCollection(CREDENTIALS).findOne(filter);
+    DBObject credential = getCollection(CREDENTIALS).findOne(filter);
     
     if(passwordService.validatePassword(password, (byte[]) credential.get(KEY_PASSWORD), (byte[]) credential.get(KEY_SALT)))
       return new User(email);
@@ -107,13 +107,13 @@ public class CredentialsComponent implements CredentialsService
 	  DBObject query = new BasicDBObject(2);
 	  query.put(KEY_GROUP_NAME, role);
 	  query.put(KEY_GROUP_MEMBERS, principal.getName());
-	  return credentialsDatabaseProvider.getDB().getCollection(GROUPS).findOne(query) != null;
+	  return getCollection(GROUPS).findOne(query) != null;
   }
 
   @Reference(unbind = "-", target = "(alias=creds)")
 	public void bindMongoDatabaseProvider(MongoDatabaseProvider mongoDatabaseProvider)
 	{
-		this.credentialsDatabaseProvider = mongoDatabaseProvider;
+		super.bindMongoDatabaseProvider(mongoDatabaseProvider);
 	}
 
 	@Reference(unbind = "-")

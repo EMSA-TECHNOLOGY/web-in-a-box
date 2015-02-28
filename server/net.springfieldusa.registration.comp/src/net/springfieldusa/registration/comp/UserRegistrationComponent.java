@@ -22,6 +22,7 @@ package net.springfieldusa.registration.comp;
 import java.util.Date;
 
 import net.springfieldusa.credentials.Credential;
+import net.springfieldusa.mongodb.comp.MongoDBComponent;
 import net.springfieldusa.password.EncryptionException;
 import net.springfieldusa.password.PasswordService;
 import net.springfieldusa.registration.UserRegistrationService;
@@ -38,10 +39,9 @@ import com.mongodb.DBObject;
  * 
  */
 @Component(service = UserRegistrationService.class)
-public class UserRegistrationComponent implements UserRegistrationService
+public class UserRegistrationComponent extends MongoDBComponent implements UserRegistrationService
 {
 	private static final String REGISTRATIONS = "registrations";
-	private volatile MongoDatabaseProvider mongoDatabaseProvider;
 	private volatile PasswordService passwordService;
 
 	@Override
@@ -57,13 +57,13 @@ public class UserRegistrationComponent implements UserRegistrationService
 		data.put("password", passwordService.encryptPassword(userRegistration.getPassword(), salt));
 		data.put("registeredOn", new Date());
 
-		mongoDatabaseProvider.getDB().getCollection(REGISTRATIONS).insert(data);
+		getCollection(REGISTRATIONS).insert(data);
 	}
 
 	@Reference(unbind = "-", target = "(alias=data)")
 	public void bindMongoDatabaseProvider(MongoDatabaseProvider mongoDatabaseProvider)
 	{
-		this.mongoDatabaseProvider = mongoDatabaseProvider;
+		super.bindMongoDatabaseProvider(mongoDatabaseProvider);
 	}
 
 	@Reference(unbind = "-")

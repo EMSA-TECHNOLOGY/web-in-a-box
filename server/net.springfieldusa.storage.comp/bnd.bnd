@@ -1,9 +1,11 @@
 Bundle-Version: 0.0.0.${tstamp}
--buildpath:  \
+-buildpath: \
 	net.springfieldusa.storage.api;version=latest,\
 	org.mongodb.mongo-java-driver,\
 	osgi.cmpn;version=5.0,\
-	org.eclipselabs.emongo.api
+	org.eclipselabs.emongo.api,\
+	net.springfieldusa.comp;version=latest,\
+	net.springfieldusa.mongodb.comp;version=latest
 -dsannotations:  \
 	*
 Private-Package:  \

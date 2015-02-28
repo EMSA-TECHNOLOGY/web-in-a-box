@@ -1,5 +1,6 @@
 package net.springfieldusa.storage.comp;
 
+import net.springfieldusa.mongodb.comp.MongoDBComponent;
 import net.springfieldusa.storage.StorageService;
 
 import org.bson.types.ObjectId;
@@ -15,10 +16,8 @@ import com.mongodb.util.JSON;
 
 @Component(service=StorageService.class)
 // TODO: this implementation is very hacky and should be revisited
-public class StorageComponent implements StorageService
+public class StorageComponent extends MongoDBComponent implements StorageService
 {
-  private MongoDatabaseProvider mongoDatabaseProvider;
-  
   @Override
   public void create(String collectionName, String json)
   {
@@ -74,15 +73,9 @@ public class StorageComponent implements StorageService
     return results.toString();
   }
 
-  @Reference(unbind = "-")
+  @Reference(unbind = "-", target = "(alias=data)")
   public void bindMongoDatabaseProvider(MongoDatabaseProvider mongoDatabaseProvider)
   {
-    this.mongoDatabaseProvider = mongoDatabaseProvider;
+    super.bindMongoDatabaseProvider(mongoDatabaseProvider);
   }
-
-  private DBCollection getCollection(String collectionName)
-  {
-    return mongoDatabaseProvider.getDB().getCollection(collectionName);
-  }
-
 }
