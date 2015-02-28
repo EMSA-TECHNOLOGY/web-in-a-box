@@ -85,7 +85,7 @@ public class CredentialsComponent extends MongoDBComponent implements Credential
   public void addPrincipalToGroup(Principal principal, String group)
   {
     DBObject query = new BasicDBObject(KEY_GROUP_NAME, group);
-    DBObject value = new BasicDBObject("$push", new BasicDBObject(KEY_GROUP_MEMBERS, principal.getName()));
+    DBObject value = new BasicDBObject("$addToSet", new BasicDBObject(KEY_GROUP_MEMBERS, principal.getName()));
     getCollection(GROUPS).update(query, value);
   }
 
