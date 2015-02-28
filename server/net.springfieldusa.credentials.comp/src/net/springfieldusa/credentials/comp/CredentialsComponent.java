@@ -31,6 +31,7 @@ import org.eclipselabs.emongo.MongoDatabaseProvider;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
@@ -47,6 +48,8 @@ public class CredentialsComponent implements CredentialsService
   private static final String KEY_EMAIL = "email";
   private static final String CREDENTIALS = "credentials";
   private static final String GROUPS = "groups";
+  private static final String KEY_GROUP_NAME = "_id";
+  private static final String KEY_GROUP_MEMBERS = "members";
   
 	private volatile MongoDatabaseProvider credentialsDatabaseProvider;
 	private volatile PasswordService passwordService;
@@ -68,6 +71,25 @@ public class CredentialsComponent implements CredentialsService
 	}
 
   @Override
+  public void addGroup(String name)
+  {
+    // TODO check for group existence or try upsert
+    
+    DBObject group = new BasicDBObject(2);
+    group.put(KEY_GROUP_NAME, name);
+    group.put(KEY_GROUP_MEMBERS, new BasicDBList());
+    credentialsDatabaseProvider.getDB().getCollection(GROUPS).insert(group);
+  }
+
+  @Override
+  public void addPrincipalToGroup(Principal principal, String group)
+  {
+    DBObject query = new BasicDBObject(KEY_GROUP_NAME, group);
+    DBObject value = new BasicDBObject("$push", new BasicDBObject(KEY_GROUP_MEMBERS, principal.getName()));
+    credentialsDatabaseProvider.getDB().getCollection(GROUPS).update(query, value);
+  }
+
+  @Override
   public Principal authenticate(String email, String password) throws EncryptionException
   {
     DBObject filter = new BasicDBObject(KEY_EMAIL, email);
@@ -83,8 +105,8 @@ public class CredentialsComponent implements CredentialsService
   public boolean authorize(Principal principal, String role)
   {
 	  DBObject query = new BasicDBObject(2);
-	  query.put("name", role);
-	  query.put("members", principal.getName());
+	  query.put(KEY_GROUP_NAME, role);
+	  query.put(KEY_GROUP_MEMBERS, principal.getName());
 	  return credentialsDatabaseProvider.getDB().getCollection(GROUPS).findOne(query) != null;
   }
 
