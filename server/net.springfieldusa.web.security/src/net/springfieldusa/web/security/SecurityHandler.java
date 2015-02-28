@@ -25,8 +25,7 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
   @Override
   public boolean isUserInRole(Principal user, String role)
   {
-    // TODO Auto-generated method stub
-    return true;
+    return securityService.authorize(user, role);
   }
 
   @Override
