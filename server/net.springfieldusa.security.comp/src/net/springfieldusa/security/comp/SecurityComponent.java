@@ -33,7 +33,7 @@ public class SecurityComponent extends AbstractComponent implements SecurityServ
   @Override
   public boolean authorize(Principal principal, String role)
   {
-    return true; // FIXME
+    return credentialsService.authorize(principal, role);
   }
   
   @Reference(unbind="-")

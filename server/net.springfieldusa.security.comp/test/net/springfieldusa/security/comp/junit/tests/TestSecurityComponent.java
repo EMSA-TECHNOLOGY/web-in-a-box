@@ -2,8 +2,9 @@ package net.springfieldusa.security.comp.junit.tests;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -33,6 +34,7 @@ public class TestSecurityComponent
     securityComponent.bindCredentialService(credentialsService);
     
     when(credentialsService.authenticate(email, password)).thenReturn(principal);
+    when(credentialsService.authorize(principal, "admin")).thenReturn(true);
   }
   
   @Test
@@ -46,6 +48,7 @@ public class TestSecurityComponent
   @Test
   public void testAuthorize()
   {
-    fail("not implemented");
+    assertTrue(securityComponent.authorize(principal, "admin"));
+    assertFalse(securityComponent.authorize(principal, "root"));
   }
 }

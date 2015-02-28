@@ -46,6 +46,7 @@ public class CredentialsComponent implements CredentialsService
   private static final String KEY_SALT = "salt";
   private static final String KEY_EMAIL = "email";
   private static final String CREDENTIALS = "credentials";
+  private static final String GROUPS = "groups";
   
 	private volatile MongoDatabaseProvider credentialsDatabaseProvider;
 	private volatile PasswordService passwordService;
@@ -78,7 +79,16 @@ public class CredentialsComponent implements CredentialsService
     return null;
   }
 
-	@Reference(unbind = "-", target = "(alias=creds)")
+	@Override
+  public boolean authorize(Principal principal, String role)
+  {
+	  DBObject query = new BasicDBObject(2);
+	  query.put("name", role);
+	  query.put("members", principal.getName());
+	  return credentialsDatabaseProvider.getDB().getCollection(GROUPS).findOne(query) != null;
+  }
+
+  @Reference(unbind = "-", target = "(alias=creds)")
 	public void bindMongoDatabaseProvider(MongoDatabaseProvider mongoDatabaseProvider)
 	{
 		this.credentialsDatabaseProvider = mongoDatabaseProvider;
