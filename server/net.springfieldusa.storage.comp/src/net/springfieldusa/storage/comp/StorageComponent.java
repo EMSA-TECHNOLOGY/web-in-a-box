@@ -67,7 +67,7 @@ public class StorageComponent implements StorageService
       else
         results.append(',');
       
-      results.append(cursor.next());
+      results.append(cursor.next().toString());
     }
     
     results.append(']');
