@@ -33,11 +33,11 @@
 	osgi.identity;filter:='(osgi.identity=org.eclipse.persistence.antlr)'
 -runfw: org.apache.felix.framework;version='[4.4.1,4.4.1]'
 -runee: JavaSE-1.8
--runbundles:  \
-	com.eclipsesource.jaxrs.jersey-all;version='[2.10.1,2.10.2)',\
-	com.eclipsesource.jaxrs.provider.moxy;version='[2.0.0,2.0.1)',\
-	com.eclipsesource.jaxrs.provider.security;version='[2.0.0,2.0.1)',\
-	com.eclipsesource.jaxrs.publisher;version='[4.1.0,4.1.1)',\
+-runbundles: \
+	com.eclipsesource.jaxrs.jersey-all;version=latest,\
+	com.eclipsesource.jaxrs.provider.moxy;version=latest,\
+	com.eclipsesource.jaxrs.provider.security;version=latest,\
+	com.eclipsesource.jaxrs.publisher;version=latest,\
 	com.googlecode.json-simple;version='[1.1.1,1.1.2)',\
 	net.springfieldusa.comp;version=latest,\
 	net.springfieldusa.credentials.api;version=latest,\
@@ -50,7 +50,6 @@
 	net.springfieldusa.security.comp;version=latest,\
 	net.springfieldusa.web.registration;version=latest,\
 	net.springfieldusa.web.security;version=latest,\
-	net.springfielduwa.web.json;version=latest,\
 	org.apache.felix.configadmin;version='[1.8.0,1.8.1)',\
 	org.apache.felix.gogo.command;version='[0.14.0,0.14.1)',\
 	org.apache.felix.gogo.runtime;version='[0.12.1,0.12.2)',\
@@ -60,11 +59,13 @@
 	org.apache.felix.metatype;version='[1.0.10,1.0.11)',\
 	org.apache.felix.scr;version='[1.8.2,1.8.3)',\
 	org.apache.felix.webconsole;version='[4.2.2,4.2.3)',\
-	org.eclipse.persistence.core;version='[2.5.0,2.5.1)',\
-	org.eclipse.persistence.moxy;version='[2.5.0,2.5.1)',\
+	org.eclipse.persistence.core;version=latest,\
+	org.eclipse.persistence.moxy;version=latest,\
 	org.eclipselabs.emongo.api;version='[1.0.0,1.0.1)',\
 	org.eclipselabs.emongo.components;version='[1.0.0,1.0.1)',\
 	org.mongodb.mongo-java-driver;version='[2.13.0,2.13.1)',\
 	osgi.enterprise;version='[4.2.0,4.2.1)',\
 	osgi.residential;version='[4.3.0,4.3.1)',\
-	org.eclipse.persistence.antlr
+	org.eclipse.persistence.antlr;version=latest,\
+	net.springfieldusa.web.json;version=latest,\
+	net.springfieldusa.mongodb.comp;version=latest

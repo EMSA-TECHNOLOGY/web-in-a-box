@@ -1,12 +1,9 @@
-package net.springfieldusa.web.security;
+package net.springfieldusa.web.security.basic;
 
 import java.security.Principal;
-import java.util.Map;
+import java.util.Base64;
 
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Cookie;
-
-import net.springfieldusa.security.SecurityService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -14,12 +11,11 @@ import org.osgi.service.component.annotations.Reference;
 import com.eclipsesource.jaxrs.provider.security.AuthenticationHandler;
 import com.eclipsesource.jaxrs.provider.security.AuthorizationHandler;
 
+import net.springfieldusa.security.SecurityService;
+
 @Component(service= {AuthenticationHandler.class, AuthorizationHandler.class})
 public class SecurityHandler implements AuthenticationHandler, AuthorizationHandler
 {
-  private static final String PASSWORD_COOKIE = "password";
-  private static final String USER_COOKIE = "user";
-  
   private SecurityService securityService;
   
   @Override
@@ -31,14 +27,17 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
   @Override
   public Principal authenticate(ContainerRequestContext requestContext)
   {
-    Map<String, Cookie> cookies = requestContext.getCookies();
-    Cookie userCookie = cookies.get(USER_COOKIE);
-    Cookie passwordCookie = cookies.get(PASSWORD_COOKIE);
+    String authHeader = requestContext.getHeaderString("Authorization");
     
-    if(userCookie != null && passwordCookie != null)
-      return securityService.authenticate(userCookie.getValue(), passwordCookie.getValue());
+    if(!authHeader.startsWith("Basic "))
+      return null;
     
-    return null;
+    String[] credentials = new String(Base64.getDecoder().decode(authHeader.substring(6))).split(":");
+    
+    if(credentials.length != 2 || credentials[0].isEmpty() || credentials[1].isEmpty())
+      return null;
+    
+    return securityService.authenticate(credentials[0], credentials[1]);
   }
 
   @Override

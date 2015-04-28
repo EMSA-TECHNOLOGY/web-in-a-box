@@ -3,7 +3,6 @@ Bundle-Version: 0.0.0.${tstamp}
 	osgi.cmpn;version=5.0,\
 	com.googlecode.json-simple,\
 	com.eclipsesource.jaxrs.jersey-all
-Private-Package:  \
-	net.springfielduwa.web.json
 -dsannotations:  \
 	*
+Private-Package: net.springfielduwa.web.json
