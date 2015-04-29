@@ -3,6 +3,7 @@ package net.springfieldusa.web.security.cookie;
 import java.security.Principal;
 import java.util.Map;
 
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Cookie;
 
@@ -35,16 +36,21 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
     Cookie userCookie = cookies.get(USER_COOKIE);
     Cookie passwordCookie = cookies.get(PASSWORD_COOKIE);
     
-    if(userCookie != null && passwordCookie != null)
-      return securityService.authenticate(userCookie.getValue(), passwordCookie.getValue());
+    if(userCookie == null || passwordCookie == null)
+      throw new NotAuthorizedException("Form");
     
-    return null;
+    Principal principal = securityService.authenticate(userCookie.getValue(), passwordCookie.getValue());
+    
+    if(principal == null)
+      throw new NotAuthorizedException("Form");
+      
+    return principal;
   }
 
   @Override
   public String getAuthenticationScheme()
   {
-    return null;
+    return "Form";
   }
   
   @Reference(unbind="-")
