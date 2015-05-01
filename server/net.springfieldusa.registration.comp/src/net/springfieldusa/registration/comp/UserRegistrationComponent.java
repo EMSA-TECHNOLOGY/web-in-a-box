@@ -52,7 +52,7 @@ public class UserRegistrationComponent extends MongoDBComponent implements UserR
 		byte[] salt = passwordService.createSalt();
 
 		DBObject data = new BasicDBObject();
-		data.put("email", userRegistration.getEmail());
+		data.put("userId", userRegistration.getUserId());
 		data.put("salt", salt);
 		data.put("password", passwordService.encryptPassword(userRegistration.getPassword(), salt));
 		data.put("registeredOn", new Date());

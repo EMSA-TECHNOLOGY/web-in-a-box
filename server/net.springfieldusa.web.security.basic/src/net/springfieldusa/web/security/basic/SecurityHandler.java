@@ -12,12 +12,13 @@ import org.osgi.service.component.annotations.Reference;
 import com.eclipsesource.jaxrs.provider.security.AuthenticationHandler;
 import com.eclipsesource.jaxrs.provider.security.AuthorizationHandler;
 
+import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.security.SecurityService;
 
 @Component(service= {AuthenticationHandler.class, AuthorizationHandler.class})
 public class SecurityHandler implements AuthenticationHandler, AuthorizationHandler
 {
-  private SecurityService securityService;
+  private volatile SecurityService securityService;
   
   @Override
   public boolean isUserInRole(Principal user, String role)
@@ -38,7 +39,7 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
     if(credentials.length != 2 || credentials[0].isEmpty() || credentials[1].isEmpty())
       throw new NotAuthorizedException("Basic");
     
-    Principal principal = securityService.authenticate(credentials[0], credentials[1]);
+    Principal principal = securityService.authenticate(new Credential(credentials[0], credentials[1]));
     
     if(principal == null)
       throw new NotAuthorizedException("Basic");
@@ -49,7 +50,7 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
   @Override
   public String getAuthenticationScheme()
   {
-    return "Basic";
+    return "BASIC";
   }
   
   @Reference(unbind="-")

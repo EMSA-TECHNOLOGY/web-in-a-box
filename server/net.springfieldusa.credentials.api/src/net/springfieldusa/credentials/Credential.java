@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Credential
 {
-	private String email;
+	private String userId;
 	private String password;
 
 	/**
@@ -40,29 +40,29 @@ public class Credential
 	}
 
 	/**
-	 * Constructs a Credential instance from an email and password.
+	 * Constructs a Credential instance from an id and password.
 	 * 
-	 * @param email
+	 * @param userid
 	 * @param password
 	 */
-	public Credential(String email, String password)
+	public Credential(String userId, String password)
 	{
-		this.email = email;
+		this.userId = userId;
 		this.password = password;
 	}
 
 	/**
-	 * Retrieves the email portion of the credential.
+	 * Retrieves the user id portion of the credential.
 	 * 
-	 * @return the email
+	 * @return the user id
 	 */
-	public String getEmail()
+	public String getUserId()
 	{
-		return email;
+		return userId;
 	}
 
 	/**
-   * Retrieves the email portion of the credential.
+   * Retrieves the password portion of the credential.
    * 
 	 * @return the password
 	 */
@@ -72,13 +72,13 @@ public class Credential
 	}
 
 	/**
-	 * Changes the credential email field.
+	 * Changes the credential id field.
 	 * 
-	 * @param email the email to set
+	 * @param userId the user id to set
 	 */
-	public void setEmail(String email)
+	public void setUserId(String userId)
 	{
-		this.email = email;
+		this.userId = userId;
 	}
 
 	/**

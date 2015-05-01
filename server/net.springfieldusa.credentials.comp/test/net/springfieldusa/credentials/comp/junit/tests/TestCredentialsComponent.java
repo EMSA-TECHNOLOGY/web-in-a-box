@@ -88,12 +88,12 @@ public class TestCredentialsComponent
     when(credentials.findOne(query)).thenReturn(value);
     when(passwordService.validatePassword(password, encryptedPassword.getBytes(), salt)).thenReturn(Boolean.TRUE);
     
-    Principal principal = credentialsComponent.authenticate(email, password);
+    Principal principal = credentialsComponent.authenticate(new Credential(email, password));
     
     assertThat(principal, is(notNullValue()));
     assertThat(principal.getName(), is(email));
     
-    assertThat(credentialsComponent.authenticate(email, encryptedPassword), is(nullValue()));
+    assertThat(credentialsComponent.authenticate(new Credential(email, encryptedPassword)), is(nullValue()));
   }
   
   @Test

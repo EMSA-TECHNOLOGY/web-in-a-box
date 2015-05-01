@@ -46,7 +46,7 @@ public class CredentialsComponent extends MongoDBComponent implements Credential
 	private static final String KEY_UPDATED_ON = "updatedOn";
   private static final String KEY_PASSWORD = "password";
   private static final String KEY_SALT = "salt";
-  private static final String KEY_EMAIL = "email";
+  private static final String KEY_USER_ID = "userId";
   private static final String CREDENTIALS = "credentials";
   private static final String GROUPS = "groups";
   private static final String KEY_GROUP_NAME = "_id";
@@ -62,7 +62,7 @@ public class CredentialsComponent extends MongoDBComponent implements Credential
 		byte[] salt = passwordService.createSalt();
 
 		DBObject data = new BasicDBObject();
-		data.put(KEY_EMAIL, credential.getEmail());
+		data.put(KEY_USER_ID, credential.getUserId());
 		data.put(KEY_SALT, salt);
 		data.put(KEY_PASSWORD, passwordService.encryptPassword(credential.getPassword(), salt));
 		data.put(KEY_UPDATED_ON, new Date());
@@ -90,13 +90,13 @@ public class CredentialsComponent extends MongoDBComponent implements Credential
   }
 
   @Override
-  public Principal authenticate(String email, String password) throws EncryptionException
+  public Principal authenticate(Credential credential) throws EncryptionException
   {
-    DBObject filter = new BasicDBObject(KEY_EMAIL, email);
-    DBObject credential = getCollection(CREDENTIALS).findOne(filter);
+    DBObject filter = new BasicDBObject(KEY_USER_ID, credential.getUserId());
+    DBObject storedCredential = getCollection(CREDENTIALS).findOne(filter);
     
-    if(passwordService.validatePassword(password, (byte[]) credential.get(KEY_PASSWORD), (byte[]) credential.get(KEY_SALT)))
-      return new User(email);
+    if(passwordService.validatePassword(credential.getPassword(), (byte[]) storedCredential.get(KEY_PASSWORD), (byte[]) storedCredential.get(KEY_SALT)))
+      return new User(credential.getUserId());
     
     return null;
   }

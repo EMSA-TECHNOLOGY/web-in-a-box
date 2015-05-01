@@ -1,0 +1,9 @@
+-buildpath: \
+	osgi.core,\
+	osgi.cmpn;version=5.0.0,\
+	net.springfieldusa.session.api;version=latest,\
+	net.springfieldusa.security.api;version=latest,\
+	net.springfieldusa.credentials.api;version=latest
+-dsannotations: *
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: net.springfieldusa.session.comp

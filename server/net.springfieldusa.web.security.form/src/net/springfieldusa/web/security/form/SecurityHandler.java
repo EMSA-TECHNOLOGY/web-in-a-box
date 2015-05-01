@@ -1,13 +1,10 @@
-package net.springfieldusa.web.security.cookie;
+package net.springfieldusa.web.security.form;
 
 import java.security.Principal;
 import java.util.Map;
 
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Cookie;
-
-import net.springfieldusa.security.SecurityService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -15,13 +12,16 @@ import org.osgi.service.component.annotations.Reference;
 import com.eclipsesource.jaxrs.provider.security.AuthenticationHandler;
 import com.eclipsesource.jaxrs.provider.security.AuthorizationHandler;
 
+import net.springfieldusa.security.SecurityService;
+import net.springfieldusa.session.SessionService;
+
 @Component(service= {AuthenticationHandler.class, AuthorizationHandler.class})
 public class SecurityHandler implements AuthenticationHandler, AuthorizationHandler
 {
-  private static final String PASSWORD_COOKIE = "password";
-  private static final String USER_COOKIE = "user";
+  private static final String SESSION_COOKIE = "session";
   
-  private SecurityService securityService;
+  private volatile SecurityService securityService;
+  private volatile SessionService sessionService;
   
   @Override
   public boolean isUserInRole(Principal user, String role)
@@ -33,16 +33,15 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
   public Principal authenticate(ContainerRequestContext requestContext)
   {
     Map<String, Cookie> cookies = requestContext.getCookies();
-    Cookie userCookie = cookies.get(USER_COOKIE);
-    Cookie passwordCookie = cookies.get(PASSWORD_COOKIE);
+    Cookie sessionCookie = cookies.get(SESSION_COOKIE);
     
-    if(userCookie == null || passwordCookie == null)
-      throw new NotAuthorizedException("Form");
+    if(sessionCookie == null)
+      return null;
     
-    Principal principal = securityService.authenticate(userCookie.getValue(), passwordCookie.getValue());
+    Principal principal = sessionService.getPrincipal(sessionCookie.getValue());
     
     if(principal == null)
-      throw new NotAuthorizedException("Form");
+      return null;
       
     return principal;
   }
@@ -50,12 +49,18 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
   @Override
   public String getAuthenticationScheme()
   {
-    return "Form";
+    return "FORM";
   }
   
   @Reference(unbind="-")
   public void bindSecurityService(SecurityService securityService)
   {
     this.securityService = securityService;
+  }
+  
+  @Reference(unbind="-")
+  public void bindSessionService(SessionService sessionService)
+  {
+    this.sessionService = sessionService;
   }
 }

@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import java.security.Principal;
 
+import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.credentials.CredentialsService;
 import net.springfieldusa.password.EncryptionException;
 import net.springfieldusa.security.comp.SecurityComponent;
@@ -33,16 +34,16 @@ public class TestSecurityComponent
     credentialsService = mock(CredentialsService.class);
     securityComponent.bindCredentialService(credentialsService);
     
-    when(credentialsService.authenticate(email, password)).thenReturn(principal);
+    when(credentialsService.authenticate(new Credential(email, password))).thenReturn(principal);
     when(credentialsService.authorize(principal, "admin")).thenReturn(true);
   }
   
   @Test
   public void testAuthenticate()
   {
-    assertThat(securityComponent.authenticate(email, password), is(principal));
-    assertThat(securityComponent.authenticate(email, "bad"), is(nullValue()));
-    assertThat(securityComponent.authenticate("bad", password), is(nullValue()));
+    assertThat(securityComponent.authenticate(new Credential(email, password)), is(principal));
+    assertThat(securityComponent.authenticate(new Credential(email, "bad")), is(nullValue()));
+    assertThat(securityComponent.authenticate(new Credential("bad", password)), is(nullValue()));
   }
   
   @Test

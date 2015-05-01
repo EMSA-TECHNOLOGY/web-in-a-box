@@ -10,6 +10,6 @@ public interface CredentialsService
   void addGroup(String name);
   void addPrincipalToGroup(Principal principal, String group);
   
-  Principal authenticate(String email, String password) throws EncryptionException;
+  Principal authenticate(Credential credential) throws EncryptionException;
   boolean authorize(Principal principal, String role);
 }

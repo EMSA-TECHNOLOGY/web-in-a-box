@@ -1,0 +1,11 @@
+Bundle-Version: 0.0.0.${tstamp}
+-buildpath: \
+	com.eclipsesource.jaxrs.provider.security,\
+	osgi.cmpn;version=5.0,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	net.springfieldusa.session.api;version=latest,\
+	net.springfieldusa.security.api;version=latest
+-dsannotations:  \
+	*
+Private-Package:  \
+	net.springfieldusa.web.security.form

@@ -3,6 +3,7 @@ package net.springfieldusa.security.comp;
 import java.security.Principal;
 
 import net.springfieldusa.comp.AbstractComponent;
+import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.credentials.CredentialsService;
 import net.springfieldusa.password.EncryptionException;
 import net.springfieldusa.security.SecurityService;
@@ -17,15 +18,15 @@ public class SecurityComponent extends AbstractComponent implements SecurityServ
   private CredentialsService credentialsService;
   
   @Override
-  public Principal authenticate(String email, String password)
+  public Principal authenticate(Credential credentials)
   {
     try
     {
-      return credentialsService.authenticate(email, password);
+      return credentialsService.authenticate(credentials);
     }
     catch (EncryptionException e)
     {
-      log(LogService.LOG_ERROR, "Exception occured when attempting to authenticate user: '" + email + "'");
+      log(LogService.LOG_ERROR, "Exception occured when attempting to authenticate user: '" + credentials.getUserId() + "'");
       return null;
     }
   }
