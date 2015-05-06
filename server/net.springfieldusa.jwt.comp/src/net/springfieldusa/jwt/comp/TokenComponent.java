@@ -5,6 +5,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.security.SignatureException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +43,11 @@ public class TokenComponent implements TokenService
     if(principal == null)
       return null;
     
+    Collection<String> roles = securityService.getRoles(principal);
+    
     Map<String, Object> claims = new HashMap<>();
     claims.put("userId", principal.getName());
+    claims.put("roles", roles);
     return signer.sign(claims);
   }
 

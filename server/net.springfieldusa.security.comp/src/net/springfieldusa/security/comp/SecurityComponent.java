@@ -1,6 +1,7 @@
 package net.springfieldusa.security.comp;
 
 import java.security.Principal;
+import java.util.Collection;
 
 import net.springfieldusa.comp.AbstractComponent;
 import net.springfieldusa.credentials.Credential;
@@ -37,6 +38,13 @@ public class SecurityComponent extends AbstractComponent implements SecurityServ
     return credentialsService.authorize(principal, role);
   }
   
+  @Override
+  public Collection<String> getRoles(Principal principal)
+  {
+    // TODO: implement
+    throw new UnsupportedOperationException();
+  }
+
   @Reference(unbind="-")
   public void bindCredentialService(CredentialsService credentialsService)
   {

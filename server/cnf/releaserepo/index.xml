@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1430884877366" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1430917038064" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.comp"/>
@@ -205,21 +205,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.jwt.comp"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201505060326"/>
+      <attribute name="version" type="Version" value="0.0.0.201505061255"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="2bb3257ac41a9665730587f08653133c680c250bbb3f1ffc338170d2c7b8c11d"/>
+      <attribute name="osgi.content" value="5b782cb8de666c57d991639ee662d1db97f502cc69f7253e09a128087b93158c"/>
       <attribute name="url" value="net.springfieldusa.jwt.comp/net.springfieldusa.jwt.comp-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="4759"/>
+      <attribute name="size" type="Long" value="4877"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="net.springfieldusa.jwt.comp"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505060326"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061255"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="net.springfieldusa.jwt.comp"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505060326"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061255"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="net.springfieldusa.jwt.TokenService"/>
@@ -483,27 +483,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.security.api"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201505011708"/>
+      <attribute name="version" type="Version" value="0.0.0.201505061254"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="a1f13d4420210bea358c10806789910f2114bda37b76ece17e18b0fb4b29d03d"/>
+      <attribute name="osgi.content" value="6327826f4420a763b563703b57db8aeb6cdd84eb3fb9438b5d72b40825a8f918"/>
       <attribute name="url" value="net.springfieldusa.security.api/net.springfieldusa.security.api-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="2681"/>
+      <attribute name="size" type="Long" value="2769"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="net.springfieldusa.security.api"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505011708"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061254"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="net.springfieldusa.security.api"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505011708"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061254"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="net.springfieldusa.security"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="net.springfieldusa.security.api"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505011708"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061254"/>
       <directive name="uses" value="net.springfieldusa.credentials"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -517,21 +517,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.security.comp"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201505011708"/>
+      <attribute name="version" type="Version" value="0.0.0.201505061256"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="66b28fc5479f3b850a6cd4556c60d4f9eb83f842d0263fc3090c58aa4ff9825b"/>
+      <attribute name="osgi.content" value="e0aa36d5868bdb7df0150027b4606e594e2db01870cca9652541cc90ce825553"/>
       <attribute name="url" value="net.springfieldusa.security.comp/net.springfieldusa.security.comp-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="4301"/>
+      <attribute name="size" type="Long" value="4466"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="net.springfieldusa.security.comp"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505011708"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061256"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="net.springfieldusa.security.comp"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505011708"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061256"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="net.springfieldusa.security.SecurityService"/>
@@ -978,31 +978,44 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.web.security.jwt"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201505060400"/>
+      <attribute name="version" type="Version" value="0.0.0.201505061227"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="edaa216bfeb354d87a1b01c7220a5bac83e003bd30f56e2e01e3ee64f885f3b2"/>
+      <attribute name="osgi.content" value="e1cf175cc06f9964cafc78b6256e991143e1c46b492acce2c28d025f0badbbc6"/>
       <attribute name="url" value="net.springfieldusa.web.security.jwt/net.springfieldusa.web.security.jwt-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="5497"/>
+      <attribute name="size" type="Long" value="9651"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="net.springfieldusa.web.security.jwt"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505060400"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061227"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="net.springfieldusa.web.security.jwt"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505060400"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061227"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="com.eclipsesource.jaxrs.provider.security.AuthenticationHandler,com.eclipsesource.jaxrs.provider.security.AuthorizationHandler"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="java.lang.Object"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="com.eclipsesource.jaxrs.provider.security.AuthenticationHandler,com.eclipsesource.jaxrs.provider.security.AuthorizationHandler"/>
+      <directive name="uses" value="com.eclipsesource.jaxrs.provider.security,com.eclipsesource.jaxrs.provider.security"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="java.lang.Object"/>
       <directive name="uses" value="java.lang"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.eclipsesource.jaxrs.provider.security)(version&gt;=2.1.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs.container)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=javax.xml.bind.annotation)"/>
@@ -1019,6 +1032,10 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=net.springfieldusa.jwt.TokenService)"/>
+      <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=net.springfieldusa.jwt.TokenService)"/>
