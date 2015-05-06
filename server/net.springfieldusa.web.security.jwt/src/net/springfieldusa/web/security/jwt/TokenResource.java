@@ -13,7 +13,7 @@ import org.osgi.service.component.annotations.Reference;
 import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.jwt.TokenService;
 
-@Path("/sessions")
+@Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Component(service = Object.class)
