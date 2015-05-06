@@ -14,7 +14,7 @@ public class User implements Principal
   public User(String name, Collection<String> roles)
   {
     this.name = name;
-    roles = roles != null? new HashSet<>(roles) : Collections.emptySet();
+    this.roles = roles != null ? new HashSet<>(roles) : Collections.emptySet();
   }
 
   @Override

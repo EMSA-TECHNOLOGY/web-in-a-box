@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.container.ContainerRequestContext;
 
 import org.osgi.service.component.annotations.Component;
@@ -35,13 +34,13 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
   {
     String authHeader = requestContext.getHeaderString("Authorization");
     
-    if(authHeader == null || !authHeader.startsWith("Token "))
-      throw new NotAuthorizedException("Token");
+    if(authHeader == null || !authHeader.startsWith("Bearer "))
+      return null;
     
-    Map<String, Object> claims = tokenService.verifyToken(authHeader.substring(6));
+    Map<String, Object> claims = tokenService.verifyToken(authHeader.substring(7));
     
     if(claims == null || claims.isEmpty())
-      throw new NotAuthorizedException("Token");
+      return null;
     
     return new User((String) claims.get("userId"), (Collection<String>) claims.get("roles"));
   }

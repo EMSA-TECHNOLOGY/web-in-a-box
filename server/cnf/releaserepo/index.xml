@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1430917038064" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1430940567950" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.comp"/>
@@ -978,21 +978,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.web.security.jwt"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201505061227"/>
+      <attribute name="version" type="Version" value="0.0.0.201505061929"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="e1cf175cc06f9964cafc78b6256e991143e1c46b492acce2c28d025f0badbbc6"/>
+      <attribute name="osgi.content" value="5369f7f34f3abc79b2068e212295f7adc490ecd0ace5cd36b1dea53156400b75"/>
       <attribute name="url" value="net.springfieldusa.web.security.jwt/net.springfieldusa.web.security.jwt-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="9651"/>
+      <attribute name="size" type="Long" value="9586"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="net.springfieldusa.web.security.jwt"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505061227"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061929"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="net.springfieldusa.web.security.jwt"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201505061227"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505061929"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="com.eclipsesource.jaxrs.provider.security.AuthenticationHandler,com.eclipsesource.jaxrs.provider.security.AuthorizationHandler"/>
