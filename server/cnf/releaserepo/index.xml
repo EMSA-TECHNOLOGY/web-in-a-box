@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1430518575383" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1430884877366" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.comp"/>
@@ -165,6 +165,95 @@
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="net.springfieldusa.jwt.api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.0.201505060303"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="2f6a8d44406ba198a63447cc4b033ae9b8731d6376a4ec0cb75ddd6686454736"/>
+      <attribute name="url" value="net.springfieldusa.jwt.api/net.springfieldusa.jwt.api-0.0.0.jar"/>
+      <attribute name="size" type="Long" value="2627"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="net.springfieldusa.jwt.api"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505060303"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="net.springfieldusa.jwt.api"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505060303"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="net.springfieldusa.jwt"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="net.springfieldusa.jwt.api"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505060303"/>
+      <directive name="uses" value="net.springfieldusa.credentials"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.springfieldusa.credentials)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="net.springfieldusa.jwt.comp"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.0.201505060326"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="2bb3257ac41a9665730587f08653133c680c250bbb3f1ffc338170d2c7b8c11d"/>
+      <attribute name="url" value="net.springfieldusa.jwt.comp/net.springfieldusa.jwt.comp-0.0.0.jar"/>
+      <attribute name="size" type="Long" value="4759"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="net.springfieldusa.jwt.comp"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505060326"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="net.springfieldusa.jwt.comp"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505060326"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="net.springfieldusa.jwt.TokenService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="net.springfieldusa.jwt.TokenService"/>
+      <directive name="uses" value="net.springfieldusa.jwt"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.auth0.jwt)(version&gt;=2.1.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.springfieldusa.credentials)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.springfieldusa.jwt)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.springfieldusa.security)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=net.springfieldusa.security.SecurityService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=net.springfieldusa.security.SecurityService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="effective" value="active"/>
     </requirement>
   </resource>
   <resource>
@@ -878,6 +967,61 @@
     </requirement>
     <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=net.springfieldusa.session.SessionService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="net.springfieldusa.web.security.jwt"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.0.201505060400"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="edaa216bfeb354d87a1b01c7220a5bac83e003bd30f56e2e01e3ee64f885f3b2"/>
+      <attribute name="url" value="net.springfieldusa.web.security.jwt/net.springfieldusa.web.security.jwt-0.0.0.jar"/>
+      <attribute name="size" type="Long" value="5497"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="net.springfieldusa.web.security.jwt"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505060400"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="net.springfieldusa.web.security.jwt"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201505060400"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="java.lang.Object"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="java.lang.Object"/>
+      <directive name="uses" value="java.lang"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.bind.annotation)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.springfieldusa.credentials)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.springfieldusa.jwt)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=net.springfieldusa.jwt.TokenService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=net.springfieldusa.jwt.TokenService)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
