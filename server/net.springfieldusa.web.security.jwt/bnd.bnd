@@ -1,0 +1,9 @@
+-buildpath: \
+	osgi.core,\
+	osgi.cmpn;version=5.0.0,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	net.springfieldusa.credentials.api;version=latest,\
+	net.springfieldusa.jwt.api;version=latest
+-dsannotations: *
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: net.springfieldusa.web.security.jwt
