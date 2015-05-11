@@ -17,12 +17,13 @@ import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.JWTVerifyException;
 
+import net.springfieldusa.comp.AbstractComponent;
 import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.jwt.TokenService;
 import net.springfieldusa.security.SecurityService;
 
 @Component(service = TokenService.class)
-public class TokenComponent implements TokenService
+public class TokenComponent extends AbstractComponent implements TokenService
 {
   private volatile SecurityService securityService;
   private JWTSigner signer;

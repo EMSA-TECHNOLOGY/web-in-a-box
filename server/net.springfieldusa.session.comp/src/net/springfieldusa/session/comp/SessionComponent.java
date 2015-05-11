@@ -8,12 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import net.springfieldusa.comp.AbstractComponent;
 import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.security.SecurityService;
 import net.springfieldusa.session.SessionService;
 
 @Component(service = SessionService.class)
-public class SessionComponent implements SessionService
+public class SessionComponent extends AbstractComponent implements SessionService
 {
   // TODO: add a timestamp to the session token so that they can be
   // expired after a configured timeout

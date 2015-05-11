@@ -4,7 +4,8 @@
 	net.springfieldusa.jwt.api;version=latest,\
 	com.auth0.jwt,\
 	net.springfieldusa.credentials.api;version=latest,\
-	net.springfieldusa.security.api;version=latest
+	net.springfieldusa.security.api;version=latest,\
+	net.springfieldusa.comp;version=latest
 -dsannotations: *
 Bundle-Version: 0.0.0.${tstamp}
 Private-Package: net.springfieldusa.jwt.comp
