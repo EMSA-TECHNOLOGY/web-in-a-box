@@ -12,6 +12,7 @@ import java.util.Map;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.log.LogService;
 
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
@@ -61,6 +62,7 @@ public class TokenComponent extends AbstractComponent implements TokenService
     }
     catch (InvalidKeyException | NoSuchAlgorithmException | IllegalStateException | SignatureException | IOException | JWTVerifyException e)
     {
+      log(LogService.LOG_DEBUG, "JWT token verification exception", e);
       // TODO: better exception handling
       return null;
     }

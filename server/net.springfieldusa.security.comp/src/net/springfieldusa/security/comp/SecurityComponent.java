@@ -21,6 +21,8 @@ public class SecurityComponent extends AbstractComponent implements SecurityServ
   @Override
   public Principal authenticate(Credential credentials)
   {
+    log(LogService.LOG_DEBUG, "Authenticating user: '" + credentials.getUserId() + "'");
+    
     try
     {
       return credentialsService.authenticate(credentials);

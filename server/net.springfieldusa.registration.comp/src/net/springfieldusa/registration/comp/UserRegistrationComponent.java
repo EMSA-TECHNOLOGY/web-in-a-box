@@ -30,6 +30,7 @@ import net.springfieldusa.registration.UserRegistrationService;
 import org.eclipselabs.emongo.MongoDatabaseProvider;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.log.LogService;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -57,6 +58,7 @@ public class UserRegistrationComponent extends MongoDBComponent implements UserR
 		data.put("password", passwordService.encryptPassword(userRegistration.getPassword(), salt));
 		data.put("registeredOn", new Date());
 
+		log(LogService.LOG_DEBUG, "Registering user: '" + userRegistration.getUserId() + "'");
 		getCollection(REGISTRATIONS).insert(data);
 	}
 

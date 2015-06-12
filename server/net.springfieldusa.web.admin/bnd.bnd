@@ -1,0 +1,10 @@
+-buildpath: \
+	osgi.core,\
+	osgi.cmpn;version=5.0.0,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	org.json,\
+	net.springfieldusa.users.api;version=latest,\
+	net.springfieldusa.log.api;version=latest
+-dsannotations: *
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: net.springfieldusa.web.admin

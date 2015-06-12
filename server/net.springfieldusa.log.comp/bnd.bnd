@@ -1,0 +1,11 @@
+-buildpath: \
+	osgi.core,\
+	osgi.cmpn;version=5.0.0,\
+	net.springfieldusa.comp;version=latest,\
+	net.springfieldusa.log.api;version=latest,\
+	org.json,\
+	net.springfieldusa.mongodb.comp,\
+	org.mongodb.mongo-java-driver
+-dsannotations: *
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: net.springfieldusa.log.comp

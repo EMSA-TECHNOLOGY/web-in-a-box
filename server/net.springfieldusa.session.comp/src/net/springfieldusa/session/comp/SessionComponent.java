@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.log.LogService;
 
 import net.springfieldusa.comp.AbstractComponent;
 import net.springfieldusa.credentials.Credential;
@@ -50,16 +51,21 @@ public class SessionComponent extends AbstractComponent implements SessionServic
       sessionsByToken.remove(previousSessionToken);
 
     sessionsByToken.put(sessionToken, principal);
+    log(LogService.LOG_DEBUG, "Created session token: '" + sessionToken + "' for user: '" + credential.getUserId() + "'");    
     return sessionToken;
   }
 
   @Override
   public void expireSessionToken(String sessionToken)
   {
+    log(LogService.LOG_DEBUG, "Expiring session token: '" + sessionToken + "'");
     Principal principal = sessionsByToken.remove(sessionToken);
     
     if(principal != null)
+    {
+      log(LogService.LOG_DEBUG, "Session token expired for user: '" + principal.getName() + "'");
       sessionsByUser.remove(principal.getName());
+    }
   }
   
   @Reference(unbind = "-")
