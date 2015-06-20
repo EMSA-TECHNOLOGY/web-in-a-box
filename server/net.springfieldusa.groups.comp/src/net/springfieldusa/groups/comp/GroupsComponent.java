@@ -1,6 +1,5 @@
 package net.springfieldusa.groups.comp;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,12 +60,12 @@ public class GroupsComponent extends AbstractComponent implements GroupsService
   public Set<String> getGroupsFor(String user) throws JSONException
   {
     JSONObject query = new JSONObject().put(KEY_GROUP_MEMBERS, user);
-    Collection<JSONObject> results = storageService.find(GROUPS, query.toString());
+    JSONArray results = storageService.find(GROUPS, query.toString());
 
     HashSet<String> groups = new HashSet<>();
 
-    for (JSONObject item : results)
-      groups.add((String) item.get(KEY_GROUP_NAME));
+    for (int i = 0; i < results.length(); i++)
+      groups.add((String) results.optJSONObject(i).get(KEY_GROUP_NAME));
 
     return groups;
   }

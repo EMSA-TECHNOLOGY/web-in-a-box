@@ -23,6 +23,7 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.Set;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
@@ -91,8 +92,19 @@ public class CredentialsComponent extends AbstractComponent implements Credentia
     try
     {
       JSONObject storedCredential = storageService.retrieve(CREDENTIALS, KEY_USER_ID, credential.getUserId());
+      JSONArray jsonPassword = storedCredential.getJSONArray(KEY_PASSWORD);
+      JSONArray jsonSalt = storedCredential.getJSONArray(KEY_SALT);
       
-      if(passwordService.validatePassword(credential.getPassword(), (byte[]) storedCredential.get(KEY_PASSWORD), (byte[]) storedCredential.get(KEY_SALT)))
+      byte[] password = new byte[jsonPassword.length()];
+      byte[] salt = new byte[jsonSalt.length()];
+      
+      for(int i = 0; i < password.length; i++)
+        password[i] = (byte) jsonPassword.optInt(i);
+      
+      for(int i = 0; i < salt.length; i++)
+        salt[i] = (byte) jsonSalt.optInt(i);
+      
+      if(passwordService.validatePassword(credential.getPassword(), password, salt))
         return new User(credential.getUserId());
       
       return null;

@@ -1,10 +1,8 @@
 package net.springfieldusa.storage.comp;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.bson.types.ObjectId;
 import org.eclipselabs.emongo.MongoDatabaseProvider;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
@@ -63,16 +61,16 @@ public class StorageComponent extends MongoDBComponent implements StorageService
   }
 
   @Override
-  public Collection<JSONObject> find(String collection, String query) throws JSONException
+  public JSONArray find(String collection, String query) throws JSONException
   {
     DBObject jsonQuery = (DBObject) JSON.parse(query);
     DBCursor cursor = getCollection(collection).find(jsonQuery);
-    ArrayList<JSONObject> items = new ArrayList<>();
+    JSONArray items = new JSONArray();
     
     for(DBObject value : cursor)
     {
       JSONObject json = new JSONObject(value.toString());
-      items.add(json);
+      items.put(json);
     }
     
     return items;

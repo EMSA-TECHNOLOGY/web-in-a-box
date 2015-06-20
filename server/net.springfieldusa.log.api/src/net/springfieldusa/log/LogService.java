@@ -1,11 +1,9 @@
 package net.springfieldusa.log;
 
-import java.util.Collection;
-
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public interface LogService
 {
-  Collection<JSONObject> getLogEntries(String query) throws JSONException;
+  JSONArray getLogEntries(String query) throws JSONException;
 }

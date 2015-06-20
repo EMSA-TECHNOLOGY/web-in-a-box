@@ -3,10 +3,12 @@ package net.springfieldusa.log.comp;
 import java.util.Collection;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import net.springfieldusa.comp.AbstractComponent;
 import net.springfieldusa.log.LogService;
@@ -22,14 +24,18 @@ public class LogComponent extends AbstractComponent implements LogService
   public void activate(Map<String, Object> properties)
   {
     logCollection = (String) properties.get("collection");
+    
+    if(logCollection == null)
+      logCollection = "logs";
   }
   
   @Override
-  public Collection<JSONObject> getLogEntries(String query) throws JSONException
+  public JSONArray getLogEntries(String query) throws JSONException
   {
     return storageService.find(logCollection, query);
   }
   
+  @Reference(unbind = "-")
   public void bindStorageService(StorageService storageService)
   {
     this.storageService = storageService;
