@@ -2,15 +2,14 @@ Bundle-Version: 0.0.0.${tstamp}
 -buildpath: \
 	net.springfieldusa.registration.api;version=latest,\
 	osgi.cmpn;version=5.0,\
-	org.mongodb.mongo-java-driver,\
-	org.eclipselabs.emongo.api,\
 	net.springfieldusa.password.api;version=latest,\
 	net.springfieldusa.credentials.api;version=latest,\
 	org.mockito.mockito-all,\
 	junit;version=4.11,\
 	de.twentyeleven.skysail.org.hamcrest.hamcrest-all-osgi;version=1.3,\
 	net.springfieldusa.comp;version=latest,\
-	net.springfieldusa.mongodb.comp;version=latest
+	net.springfieldusa.storage.api;version=latest,\
+	org.json
 Private-Package:  \
 	net.springfieldusa.registration.comp
 -dsannotations:  \

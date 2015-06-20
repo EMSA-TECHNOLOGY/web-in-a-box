@@ -2,14 +2,10 @@ package net.springfieldusa.credentials;
 
 import java.security.Principal;
 
-import net.springfieldusa.password.EncryptionException;
-
 public interface CredentialsService
 {
-  void addCredential(Credential credential) throws EncryptionException;
-  void addGroup(String name);
-  void addPrincipalToGroup(Principal principal, String group);
+  void addCredential(Credential credential) throws CredentialException;
   
-  Principal authenticate(Credential credential) throws EncryptionException;
-  boolean authorize(Principal principal, String role);
+  Principal authenticate(Credential credential) throws CredentialException;
+  boolean authorize(Principal principal, String role) throws CredentialException;
 }

@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import java.security.Principal;
 
 import net.springfieldusa.credentials.Credential;
+import net.springfieldusa.credentials.CredentialException;
 import net.springfieldusa.credentials.comp.CredentialsComponent;
 import net.springfieldusa.password.EncryptionException;
 import net.springfieldusa.password.PasswordService;
@@ -63,7 +64,7 @@ public class TestCredentialsComponent
   }
   
   @Test
-  public void testAddCredential() throws EncryptionException
+  public void testAddCredential() throws EncryptionException, CredentialException
   {
     Credential credential = new Credential(email, password);
     
@@ -78,7 +79,7 @@ public class TestCredentialsComponent
   }
   
   @Test
-  public void testAuthenticate() throws EncryptionException
+  public void testAuthenticate() throws EncryptionException, CredentialException
   {
     DBObject query = new BasicDBObject("email", email );
     DBObject value = new BasicDBObject();
@@ -97,7 +98,7 @@ public class TestCredentialsComponent
   }
   
   @Test
-  public void testAuthorize()
+  public void testAuthorize() throws CredentialException
   {
     Principal principal = mock(Principal.class);
     when(principal.getName()).thenReturn(email);

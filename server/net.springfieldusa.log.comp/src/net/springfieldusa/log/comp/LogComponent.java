@@ -1,25 +1,22 @@
 package net.springfieldusa.log.comp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
-
+import net.springfieldusa.comp.AbstractComponent;
 import net.springfieldusa.log.LogService;
-import net.springfieldusa.mongodb.comp.MongoDBComponent;
+import net.springfieldusa.storage.StorageService;
 
 @Component(service = LogService.class)
-public class LogComponent extends MongoDBComponent implements LogService
+public class LogComponent extends AbstractComponent implements LogService
 {
   private String logCollection;
+  private volatile StorageService storageService;
   
   @Activate
   public void activate(Map<String, Object> properties)
@@ -28,17 +25,13 @@ public class LogComponent extends MongoDBComponent implements LogService
   }
   
   @Override
-  public List<JSONObject> getLogEntries(String query)
+  public Collection<JSONObject> getLogEntries(String query) throws JSONException
   {
-    DBObject dbQuery = (DBObject) JSON.parse(query);
-    DBCollection collection = getCollection(logCollection);
-    DBCursor results = collection.find(dbQuery);
-    
-    ArrayList<JSONObject> logEntries = new ArrayList<>();
-    
-    while(results.hasNext())
-      logEntries.add(new JSONObject(results.next().toMap()));
-    
-    return logEntries;
+    return storageService.find(logCollection, query);
+  }
+  
+  public void bindStorageService(StorageService storageService)
+  {
+    this.storageService = storageService;
   }
 }

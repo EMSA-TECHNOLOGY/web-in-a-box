@@ -1,12 +1,15 @@
 package net.springfieldusa.storage.comp;
 
-import net.springfieldusa.mongodb.comp.MongoDBComponent;
-import net.springfieldusa.storage.StorageService;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.bson.types.ObjectId;
 import org.eclipselabs.emongo.MongoDatabaseProvider;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.log.LogService;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -14,24 +17,35 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-@Component(service=StorageService.class)
+import net.springfieldusa.mongodb.comp.MongoDBComponent;
+import net.springfieldusa.storage.StorageService;
+
+@Component(service = StorageService.class)
 // TODO: this implementation is very hacky and should be revisited
 public class StorageComponent extends MongoDBComponent implements StorageService
 {
   @Override
-  public void create(String collectionName, String json)
+  public JSONObject create(String collection, JSONObject json) throws JSONException
   {
-    DBCollection collection = getCollection(collectionName);
-    DBObject data = (DBObject) JSON.parse(json);
-    collection.insert(data);
+    DBObject data = (DBObject) JSON.parse(json.toString());
+    getCollection(collection).insert(data);
+
+    json.put("_id", data.get("_id").toString());
+    log(LogService.LOG_DEBUG, "Adding object: '" + json.getString("_id") + "'");
+    return json;
   }
 
   @Override
-  public String retrieve(String collectionName, String id)
+  public JSONObject retrieve(String collection, String id) throws JSONException
   {
-    DBCollection collection = getCollection(collectionName);
-    DBObject object = collection.findOne(new ObjectId(id));
-    return object.toString();
+    return retrieve(collection, "_id", id);
+  }
+
+  @Override
+  public JSONObject retrieve(String collection, String key, String value) throws JSONException
+  {
+    DBObject result = getCollection(collection).findOne(new BasicDBObject(key, value));
+    return result != null ? new JSONObject(result.toString()) : null;
   }
 
   @Override
@@ -39,38 +53,29 @@ public class StorageComponent extends MongoDBComponent implements StorageService
   {
     DBCollection collection = getCollection(collectionName);
     DBObject data = (DBObject) JSON.parse(json);
-    collection.save(data);    
+    collection.save(data);
   }
 
   @Override
-  public void delete(String collectionName, String id)
+  public void delete(String collection, String id)
   {
-    DBCollection collection = getCollection(collectionName);
-    collection.remove(new BasicDBObject("_id", new ObjectId(id)));
+    getCollection(collection).remove(new BasicDBObject("_id", new ObjectId(id)));
   }
 
   @Override
-  public String find(String collectionName, String query)
+  public Collection<JSONObject> find(String collection, String query) throws JSONException
   {
     DBObject jsonQuery = (DBObject) JSON.parse(query);
-    DBCollection collection = getCollection(collectionName);
-    DBCursor cursor = collection.find(jsonQuery);
+    DBCursor cursor = getCollection(collection).find(jsonQuery);
+    ArrayList<JSONObject> items = new ArrayList<>();
     
-    boolean firstOne = true;
-    StringBuilder results = new StringBuilder("[");
-    
-    while(cursor.hasNext())
+    for(DBObject value : cursor)
     {
-      if(firstOne)
-        firstOne = false;
-      else
-        results.append(',');
-      
-      results.append(cursor.next().toString());
+      JSONObject json = new JSONObject(value.toString());
+      items.add(json);
     }
     
-    results.append(']');
-    return results.toString();
+    return items;
   }
 
   @Reference(unbind = "-", target = "(alias=data)")

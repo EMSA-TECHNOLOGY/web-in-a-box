@@ -3,5 +3,6 @@ Bundle-Version: 0.0.0.${tstamp}
 	org.mongodb.mongo-java-driver,\
 	org.eclipselabs.emongo.api,\
 	net.springfieldusa.comp;version=latest,\
-	osgi.cmpn;version=5.0
+	osgi.cmpn;version=5.0,\
+	org.json
 Export-Package: net.springfieldusa.mongodb.comp

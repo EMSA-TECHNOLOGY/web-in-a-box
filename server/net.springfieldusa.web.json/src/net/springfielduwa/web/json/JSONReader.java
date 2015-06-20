@@ -33,9 +33,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -47,8 +46,6 @@ import org.osgi.service.component.annotations.Component;
 @Component(service = JSONReader.class)
 public class JSONReader implements MessageBodyReader<JSONObject>
 {
-  private JSONParser parser = new JSONParser();
-  
 	@Override
 	public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType)
 	{
@@ -66,9 +63,9 @@ public class JSONReader implements MessageBodyReader<JSONObject>
 			while ((line = reader.readLine()) != null)
 				builder.append(line);
 
-			return (JSONObject) parser.parse(builder.toString());
+			return new JSONObject(builder.toString());
 		}
-		catch (ParseException e)
+		catch (JSONException e)
 		{
 			throw new IOException(e);
 		}

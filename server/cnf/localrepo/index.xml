@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1432939324516" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1434770261165" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.auth0.jwt"/>
@@ -7,9 +7,9 @@
       <attribute name="version" type="Version" value="2.1.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="9650e26c3e6ed900aa3093eb097e15ec15d59b468755119e4b6c4ba8b3cda2e2"/>
+      <attribute name="osgi.content" value="8a9e017058b860f78b3df7d7b8c7ed39f6e29c4fdee1c6e2cf360ff8142fc0cf"/>
       <attribute name="url" value="com.auth0.jwt/com.auth0.jwt-2.1.0.jar"/>
-      <attribute name="size" type="Long" value="13345"/>
+      <attribute name="size" type="Long" value="1177710"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -26,6 +26,15 @@
       <attribute name="bundle-symbolic-name" value="com.auth0.jwt"/>
       <attribute name="bundle-version" type="Version" value="2.1.0"/>
     </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.naming)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.crypto)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.crypto.spec)"/>
+    </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=com.fasterxml.jackson.databind)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
     </requirement>

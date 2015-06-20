@@ -4,7 +4,8 @@
 	com.eclipsesource.jaxrs.jersey-all,\
 	org.json,\
 	net.springfieldusa.users.api;version=latest,\
-	net.springfieldusa.log.api;version=latest
+	net.springfieldusa.log.api;version=latest,\
+	javax.servlet-api
 -dsannotations: *
 Bundle-Version: 0.0.0.${tstamp}
 Private-Package: net.springfieldusa.web.admin

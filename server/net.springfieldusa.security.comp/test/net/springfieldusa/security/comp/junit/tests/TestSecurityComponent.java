@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.security.Principal;
 
 import net.springfieldusa.credentials.Credential;
+import net.springfieldusa.credentials.CredentialException;
 import net.springfieldusa.credentials.CredentialsService;
 import net.springfieldusa.password.EncryptionException;
 import net.springfieldusa.security.comp.SecurityComponent;
@@ -27,7 +28,7 @@ public class TestSecurityComponent
   private SecurityComponent securityComponent;
   
   @Before
-  public void setUp() throws EncryptionException
+  public void setUp() throws EncryptionException, CredentialException
   {
     securityComponent = new SecurityComponent();
     principal = mock(Principal.class);

@@ -1,12 +1,16 @@
 package net.springfieldusa.web.admin;
 
-import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import java.util.Collection;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -19,10 +23,16 @@ public class LogResource {
   private volatile LogService logService;
   
   @GET
-  public Response deleteUser(@PathParam("id") String userId)
+  public Collection<JSONObject> getLog(@Context HttpServletRequest request)
   {
-    logService.getLogEntries(userId);
-    return Response.status(Status.NO_CONTENT).build();
+    try
+    {
+      return logService.getLogEntries(request.getQueryString());
+    }
+    catch (JSONException e)
+    {
+      throw new InternalServerErrorException("Failed to retrieve log entries");
+    }
   }
   
   @Reference(unbind = "-")

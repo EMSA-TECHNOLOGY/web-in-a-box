@@ -1,10 +1,10 @@
 package net.springfieldusa.mongodb.comp;
 
-import net.springfieldusa.comp.AbstractComponent;
-
 import org.eclipselabs.emongo.MongoDatabaseProvider;
 
 import com.mongodb.DBCollection;
+
+import net.springfieldusa.comp.AbstractComponent;
 
 public class MongoDBComponent extends AbstractComponent
 {
@@ -14,7 +14,7 @@ public class MongoDBComponent extends AbstractComponent
   {
     return databaseProvider.getDB().getCollection(name);
   }
-  
+
   public void bindMongoDatabaseProvider(MongoDatabaseProvider mongoDatabaseProvider)
   {
     this.databaseProvider = mongoDatabaseProvider;

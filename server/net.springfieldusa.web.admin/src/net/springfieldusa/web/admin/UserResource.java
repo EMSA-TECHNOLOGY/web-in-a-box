@@ -2,12 +2,14 @@ package net.springfieldusa.web.admin;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.*;
 
@@ -22,7 +24,14 @@ public class UserResource {
   @POST
   public JSONObject addUser(JSONObject user)
   {
-    return userService.addUser(user);
+    try
+    {
+      return userService.addUser(user);
+    }
+    catch (JSONException e)
+    {
+      throw new InternalServerErrorException("Failed to add user");
+    }
   }
   
   @DELETE

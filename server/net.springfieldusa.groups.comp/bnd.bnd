@@ -1,0 +1,10 @@
+-buildpath: \
+	osgi.core,\
+	osgi.cmpn;version=5.0.0,\
+	net.springfieldusa.groups.api;version=latest,\
+	org.json,\
+	net.springfieldusa.comp;version=latest,\
+	net.springfieldusa.storage.api;version=latest
+-dsannotations: *
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: net.springfieldusa.groups.comp

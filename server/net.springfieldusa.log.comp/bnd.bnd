@@ -4,8 +4,7 @@
 	net.springfieldusa.comp;version=latest,\
 	net.springfieldusa.log.api;version=latest,\
 	org.json,\
-	net.springfieldusa.mongodb.comp,\
-	org.mongodb.mongo-java-driver
+	net.springfieldusa.storage.api;version=latest
 -dsannotations: *
 Bundle-Version: 0.0.0.${tstamp}
 Private-Package: net.springfieldusa.log.comp

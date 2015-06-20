@@ -1,56 +1,35 @@
 package net.springfieldusa.users.comp;
 
-import org.bson.types.ObjectId;
-import org.eclipselabs.emongo.MongoDatabaseProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.log.LogService;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.WriteResult;
-import com.mongodb.util.JSON;
-
-import net.springfieldusa.mongodb.comp.MongoDBComponent;
+import net.springfieldusa.comp.AbstractComponent;
+import net.springfieldusa.storage.StorageService;
 import net.springfieldusa.users.UserService;
 
 @Component(service = UserService.class)
-public class UserComponent extends MongoDBComponent implements UserService 
+public class UserComponent extends AbstractComponent implements UserService 
 {
   private static final String USERS = "users";
-
+  private volatile StorageService storageService;
+  
   @Override
-  public JSONObject addUser(JSONObject user)
+  public JSONObject addUser(JSONObject user) throws JSONException
   {
-    DBObject data = (DBObject) JSON.parse(user.toString());
-    WriteResult result = getCollection(USERS).insert(data);
-    
-    try
-    {
-      user.put("id", result.getUpsertedId().toString());
-      log(LogService.LOG_DEBUG, "Adding user: '" + user.getString("id") + "'");
-      return user;
-    }
-    catch (JSONException e)
-    {
-      log(LogService.LOG_ERROR, "Failed to add id to user object", e);
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-      return null;
-    }
+    return storageService.create(USERS, user);
   }
 
   @Override
   public void removeUser(String userId)
   {
-    getCollection(USERS).remove(new BasicDBObject("_id", new ObjectId(userId)));
+    storageService.delete(USERS, userId);
   }
   
-  @Reference(unbind = "-", target = "(alias=data)")
-  public void bindMongoDatabaseProvider(MongoDatabaseProvider mongoDatabaseProvider)
+  @Reference(unbind = "-")
+  public void bindStorageService(StorageService storageService)
   {
-    super.bindMongoDatabaseProvider(mongoDatabaseProvider);
+    this.storageService = storageService;
   }
 }

@@ -1,22 +1,26 @@
 package net.springfieldusa.security.comp;
 
 import java.security.Principal;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
-import net.springfieldusa.comp.AbstractComponent;
-import net.springfieldusa.credentials.Credential;
-import net.springfieldusa.credentials.CredentialsService;
-import net.springfieldusa.password.EncryptionException;
-import net.springfieldusa.security.SecurityService;
-
+import org.json.JSONException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
+
+import net.springfieldusa.comp.AbstractComponent;
+import net.springfieldusa.credentials.Credential;
+import net.springfieldusa.credentials.CredentialException;
+import net.springfieldusa.credentials.CredentialsService;
+import net.springfieldusa.groups.GroupsService;
+import net.springfieldusa.security.SecurityService;
 
 @Component(service=SecurityService.class)
 public class SecurityComponent extends AbstractComponent implements SecurityService
 {
   private CredentialsService credentialsService;
+  private GroupsService groupsService;
   
   @Override
   public Principal authenticate(Credential credentials)
@@ -27,7 +31,7 @@ public class SecurityComponent extends AbstractComponent implements SecurityServ
     {
       return credentialsService.authenticate(credentials);
     }
-    catch (EncryptionException e)
+    catch (CredentialException e)
     {
       log(LogService.LOG_ERROR, "Exception occured when attempting to authenticate user: '" + credentials.getUserId() + "'");
       return null;
@@ -37,19 +41,40 @@ public class SecurityComponent extends AbstractComponent implements SecurityServ
   @Override
   public boolean authorize(Principal principal, String role)
   {
-    return credentialsService.authorize(principal, role);
+    try
+    {
+      return credentialsService.authorize(principal, role);
+    }
+    catch (CredentialException e)
+    {
+      log(LogService.LOG_ERROR, "Exception occured when attempting to authorize user: '" + principal.getName() + "' for role: '" + role + "'");
+      return false;
+    }
   }
   
   @Override
-  public Collection<String> getRoles(Principal principal)
+  public Set<String> getRoles(Principal principal)
   {
-    // TODO: implement
-    throw new UnsupportedOperationException();
+    try
+    {
+      return groupsService.getGroupsFor(principal.getName());
+    }
+    catch (JSONException e)
+    {
+      log(LogService.LOG_ERROR, "Exception occured when attempting to get groups for user: '" + principal.getName() + "'");
+      return Collections.emptySet();
+    }
   }
 
   @Reference(unbind="-")
   public void bindCredentialService(CredentialsService credentialsService)
   {
     this.credentialsService = credentialsService;
+  }
+
+  @Reference(unbind="-")
+  public void bindGroupsService(GroupsService groupsService)
+  {
+    this.groupsService = groupsService;
   }
 }

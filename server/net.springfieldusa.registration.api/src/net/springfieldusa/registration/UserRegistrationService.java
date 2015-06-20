@@ -20,7 +20,6 @@
 package net.springfieldusa.registration;
 
 import net.springfieldusa.credentials.Credential;
-import net.springfieldusa.password.EncryptionException;
 
 
 /**
@@ -29,5 +28,5 @@ import net.springfieldusa.password.EncryptionException;
  */
 public interface UserRegistrationService
 {
-	void registerUser(Credential credential) throws EncryptionException;
+	void registerUser(Credential credential) throws RegistrationException;
 }

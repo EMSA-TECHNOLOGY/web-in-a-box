@@ -1,10 +1,16 @@
 package net.springfieldusa.storage;
 
+import java.util.Collection;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public interface StorageService
 {
-  void create(String collectionName, String json);
-  String retrieve(String collectionName, String id);
-  void update(String collectionName, String json);
-  void delete(String collectionName, String id);
-  String find(String collectionName, String query);
+  JSONObject create(String collection, JSONObject json) throws JSONException;
+  JSONObject retrieve(String collection, String id) throws JSONException;
+  JSONObject retrieve(String collection, String key, String value) throws JSONException;
+  void update(String collection, String JSONObject);
+  void delete(String collection, String id);
+  Collection<JSONObject> find(String collection, String query) throws JSONException;
 }

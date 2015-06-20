@@ -19,10 +19,9 @@
 
 package net.springfieldusa.web.registration;
 
-import java.io.IOException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,11 +29,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import net.springfieldusa.credentials.Credential;
-import net.springfieldusa.registration.UserRegistrationService;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import net.springfieldusa.credentials.Credential;
+import net.springfieldusa.registration.RegistrationException;
+import net.springfieldusa.registration.UserRegistrationService;
 
 /**
  * @author bhunt
@@ -55,18 +55,18 @@ public class UserRegistrationResource
 	}
 
 	@POST
-	public Response registerUser(Credential credential) throws IOException
+	public Response registerUser(Credential credential)
 	{
-		try
-		{
-		  userRegistrationService.registerUser(credential);
-			String result = "ok";
-			return Response.status(Status.CREATED).entity(result).build();
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		  try
+      {
+        userRegistrationService.registerUser(credential);
+        String result = "ok";
+        return Response.status(Status.CREATED).entity(result).build();
+      }
+      catch (RegistrationException e)
+      {
+        throw new InternalServerErrorException("Failed to register user");
+      }
 	}
 
 	@Reference(unbind = "-")

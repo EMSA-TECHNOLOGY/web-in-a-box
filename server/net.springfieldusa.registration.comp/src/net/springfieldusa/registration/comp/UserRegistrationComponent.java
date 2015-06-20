@@ -21,56 +21,63 @@ package net.springfieldusa.registration.comp;
 
 import java.util.Date;
 
-import net.springfieldusa.credentials.Credential;
-import net.springfieldusa.mongodb.comp.MongoDBComponent;
-import net.springfieldusa.password.EncryptionException;
-import net.springfieldusa.password.PasswordService;
-import net.springfieldusa.registration.UserRegistrationService;
-
-import org.eclipselabs.emongo.MongoDatabaseProvider;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+import net.springfieldusa.comp.AbstractComponent;
+import net.springfieldusa.credentials.Credential;
+import net.springfieldusa.password.EncryptionException;
+import net.springfieldusa.password.PasswordService;
+import net.springfieldusa.registration.RegistrationException;
+import net.springfieldusa.registration.UserRegistrationService;
+import net.springfieldusa.storage.StorageService;
+
 
 /**
  * @author bhunt
  * 
  */
 @Component(service = UserRegistrationService.class)
-public class UserRegistrationComponent extends MongoDBComponent implements UserRegistrationService
+public class UserRegistrationComponent extends AbstractComponent implements UserRegistrationService
 {
 	private static final String REGISTRATIONS = "registrations";
 	private volatile PasswordService passwordService;
+	private volatile StorageService storageService;
 
 	@Override
-	public void registerUser(Credential userRegistration) throws EncryptionException
+	public void registerUser(Credential userRegistration) throws RegistrationException
 	{
 		// TODO : See if the user is already registered or has a registration pending
 
-		byte[] salt = passwordService.createSalt();
+		try
+    {
+		  byte[] salt = passwordService.createSalt();
+      JSONObject data = new JSONObject();
+      data.put("userId", userRegistration.getUserId());
+      data.put("salt", salt);
+      data.put("password", passwordService.encryptPassword(userRegistration.getPassword(), salt));
+      data.put("registeredOn", new Date());
 
-		DBObject data = new BasicDBObject();
-		data.put("userId", userRegistration.getUserId());
-		data.put("salt", salt);
-		data.put("password", passwordService.encryptPassword(userRegistration.getPassword(), salt));
-		data.put("registeredOn", new Date());
-
-		log(LogService.LOG_DEBUG, "Registering user: '" + userRegistration.getUserId() + "'");
-		getCollection(REGISTRATIONS).insert(data);
-	}
-
-	@Reference(unbind = "-", target = "(alias=data)")
-	public void bindMongoDatabaseProvider(MongoDatabaseProvider mongoDatabaseProvider)
-	{
-		super.bindMongoDatabaseProvider(mongoDatabaseProvider);
+      log(LogService.LOG_DEBUG, "Registering user: '" + userRegistration.getUserId() + "'");
+      storageService.create(REGISTRATIONS, data);
+    }
+    catch (JSONException | EncryptionException e)
+    {
+      throw new RegistrationException(e);
+    }
 	}
 
 	@Reference(unbind = "-")
 	public void bindPasswordService(PasswordService passwordService)
 	{
 		this.passwordService = passwordService;
+	}
+	
+	public void bindStorageService(StorageService storageService)
+	{
+	  this.storageService = storageService;
 	}
 }
