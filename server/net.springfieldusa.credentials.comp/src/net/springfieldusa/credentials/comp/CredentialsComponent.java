@@ -92,6 +92,10 @@ public class CredentialsComponent extends AbstractComponent implements Credentia
     try
     {
       JSONObject storedCredential = storageService.retrieve(CREDENTIALS, KEY_USER_ID, credential.getUserId());
+      
+      if(storedCredential == null)
+        return null;
+      
       JSONArray jsonPassword = storedCredential.getJSONArray(KEY_PASSWORD);
       JSONArray jsonSalt = storedCredential.getJSONArray(KEY_SALT);
       
