@@ -1,5 +1,27 @@
-<ul>
-  {{#each model as |log|}}
-    <li>{{log.time}} {{log.level}} {{log.bsn}} {{log.message}}</li>
-  {{/each}}
-</ul>
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+      {{paper-icon icon="menu"}}
+    {{/paper-sidenav-toggle}}
+    <span>Log</span>
+  </h2>
+{{/paper-toolbar}}
+
+{{#paper-content classNames="md-padding"}}
+  <table>
+    <tr>
+      <th class="log-date">Date</th>
+      <th>Level</th>
+      <th>Bundle</th>
+      <th>Message</th>
+    </tr>
+    {{#each model as |log|}}
+      <tr>
+        <td>{{log.date}}</td>
+        <td>{{log.levelLabel}}</td>
+        <td>{{log.bsn}}</td>
+        <td>{{log.message}}</td>
+      </tr>
+    {{/each}}
+  </table>
+{{/paper-content}}
