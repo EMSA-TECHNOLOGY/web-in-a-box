@@ -32,8 +32,13 @@ public class LogResource {
   {
     try
     {
-      JSONArray logEntries = logService.getLogEntries(URLDecoder.decode(request.getQueryString(), "UTF-8"));
-      JSONObject result = new JSONObject().put("logEntries", logEntries);
+      String query = request.getQueryString();
+      
+      if(query == null || query.isEmpty())
+        query = "{}";
+      
+      JSONArray logEntries = logService.getLogEntries(URLDecoder.decode(query, "UTF-8"));
+      JSONObject result = new JSONObject().put("admin/logs", logEntries);
       return result;
     }
     catch (JSONException | UnsupportedEncodingException e)
