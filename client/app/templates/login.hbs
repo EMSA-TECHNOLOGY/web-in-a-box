@@ -14,8 +14,8 @@
 
   <div layout="column" layout-align="center center">
     <form class="login" layout="column" layout-align="center center" {{action 'authenticate' on='submit'}}>
-        {{paper-text label="User ID" value=identification class="login-field"}}
-        {{paper-text label="Password" type="password" value=password class="login-field"}}
+        {{paper-input label="User ID" value=identification class="login-field"}}
+        {{paper-input label="Password" type="password" value=password class="login-field"}}
         {{#paper-button type="submit" class="login-button md-raised md-primary"}}Login{{/paper-button}}
     </form>
   </div>
