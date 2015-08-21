@@ -2,30 +2,29 @@ package net.springfieldusa.registration.comp.junit.tests;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import net.springfieldusa.credentials.Credential;
-import net.springfieldusa.password.EncryptionException;
-import net.springfieldusa.password.PasswordService;
-import net.springfieldusa.registration.comp.UserRegistrationComponent;
 
-import org.eclipselabs.emongo.MongoDatabaseProvider;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+import net.springfieldusa.credentials.Credential;
+import net.springfieldusa.password.EncryptionException;
+import net.springfieldusa.password.PasswordService;
+import net.springfieldusa.registration.RegistrationException;
+import net.springfieldusa.registration.comp.UserRegistrationComponent;
+import net.springfieldusa.storage.StorageService;
 
 public class TestUserRegistrationComponent
 {
   private UserRegistrationComponent userRegistrationComponent;
   private PasswordService passwordService;
-  private MongoDatabaseProvider mongoDatabaseProvider;
-  private DB db;
-  private DBCollection collection;
+  private StorageService storageService;
   private String email;
   private String password;
   private String encryptedPassword;
@@ -39,28 +38,24 @@ public class TestUserRegistrationComponent
     salt = new byte[] {0, 1, 2};
     encryptedPassword = "encryptedPassword";
     passwordService = mock(PasswordService.class);
-    mongoDatabaseProvider = mock(MongoDatabaseProvider.class);
-    db = mock(DB.class);
-    collection = mock(DBCollection.class);
+    storageService = mock(StorageService.class);
     
     userRegistrationComponent = new UserRegistrationComponent();
-    userRegistrationComponent.bindMongoDatabaseProvider(mongoDatabaseProvider);
+    userRegistrationComponent.bindStorageService(storageService);
     userRegistrationComponent.bindPasswordService(passwordService);
     
-    when(mongoDatabaseProvider.getDB()).thenReturn(db);
-    when(db.getCollection("registrations")).thenReturn(collection);
     when(passwordService.createSalt()).thenReturn(salt);
     when(passwordService.encryptPassword(password, salt)).thenReturn(encryptedPassword.getBytes());
   }
 
   @Test
-  public void testRegisterUser() throws EncryptionException
+  public void testRegisterUser() throws EncryptionException, RegistrationException, JSONException
   {
     Credential userRegistration = new Credential(email, password);
     userRegistrationComponent.registerUser(userRegistration);
-    ArgumentCaptor<DBObject> argument = ArgumentCaptor.forClass(DBObject.class);
-    verify(collection).insert(argument.capture());
-    assertThat(argument.getValue().get("email"), is(email));
+    ArgumentCaptor<JSONObject> argument = ArgumentCaptor.forClass(JSONObject.class);
+    verify(storageService).create(eq("registrations"), argument.capture());
+    assertThat(argument.getValue().get("userId"), is(email));
     assertThat(argument.getValue().get("password"), is(encryptedPassword.getBytes()));
   }
 }

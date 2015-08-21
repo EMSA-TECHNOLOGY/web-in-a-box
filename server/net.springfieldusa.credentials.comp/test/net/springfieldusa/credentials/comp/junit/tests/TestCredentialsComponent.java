@@ -6,36 +6,37 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.springfieldusa.credentials.Credential;
 import net.springfieldusa.credentials.CredentialException;
 import net.springfieldusa.credentials.comp.CredentialsComponent;
+import net.springfieldusa.groups.GroupsService;
 import net.springfieldusa.password.EncryptionException;
 import net.springfieldusa.password.PasswordService;
+import net.springfieldusa.storage.StorageService;
 
-import org.eclipselabs.emongo.MongoDatabaseProvider;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 
 public class TestCredentialsComponent
 {
   private CredentialsComponent credentialsComponent;
   private PasswordService passwordService;
-  private MongoDatabaseProvider mongoDatabaseProvider;
-  private DB db;
-  private DBCollection credentials;
-  private DBCollection groups;
+  private StorageService storageService;
+  private GroupsService groupsService;
   private String email;
   private String password;
   private String encryptedPassword;
@@ -49,44 +50,38 @@ public class TestCredentialsComponent
     salt = new byte[] {0, 1, 2};
     encryptedPassword = "encryptedPassword";
     passwordService = mock(PasswordService.class);
-    mongoDatabaseProvider = mock(MongoDatabaseProvider.class);
-    db = mock(DB.class);
-    credentials = mock(DBCollection.class);
-    groups = mock(DBCollection.class);
+    storageService = mock(StorageService.class);
+    groupsService = mock(GroupsService.class);
     
     credentialsComponent = new CredentialsComponent();
-    credentialsComponent.bindMongoDatabaseProvider(mongoDatabaseProvider);
-    credentialsComponent.bindPasswordService(passwordService);
-    
-    when(mongoDatabaseProvider.getDB()).thenReturn(db);
-    when(db.getCollection("credentials")).thenReturn(credentials);
-    when(db.getCollection("groups")).thenReturn(groups);
+    credentialsComponent.bindStorageService(storageService);
+    credentialsComponent.bindPasswordService(passwordService);    
+    credentialsComponent.bindGroupsService(groupsService);
   }
   
   @Test
-  public void testAddCredential() throws EncryptionException, CredentialException
+  public void testAddCredential() throws EncryptionException, CredentialException, JSONException
   {
     Credential credential = new Credential(email, password);
     
     when(passwordService.createSalt()).thenReturn(salt);
     when(passwordService.encryptPassword(password, salt)).thenReturn(encryptedPassword.getBytes());
     
-    credentialsComponent.addCredential(credential );
+    credentialsComponent.addCredential(credential);
     
-    ArgumentCaptor<DBObject> argument = ArgumentCaptor.forClass(DBObject.class);
-    verify(credentials).insert(argument.capture());
+    ArgumentCaptor<JSONObject> argument = ArgumentCaptor.forClass(JSONObject.class);
+    verify(storageService).create(eq("credentials"), argument.capture());
     assertThat(argument.getValue().get("password"), is(encryptedPassword.getBytes()));
   }
   
   @Test
-  public void testAuthenticate() throws EncryptionException, CredentialException
+  public void testAuthenticate() throws EncryptionException, CredentialException, JSONException
   {
-    DBObject query = new BasicDBObject("email", email );
-    DBObject value = new BasicDBObject();
-    value.put("password", encryptedPassword.getBytes());
-    value.put("salt", salt);
+    JSONObject value = new JSONObject();
+    value.put("password", new JSONArray(encryptedPassword.getBytes()));
+    value.put("salt", new JSONArray(salt));
     
-    when(credentials.findOne(query)).thenReturn(value);
+    when(storageService.retrieve("credentials", "userId", email)).thenReturn(value);
     when(passwordService.validatePassword(password, encryptedPassword.getBytes(), salt)).thenReturn(Boolean.TRUE);
     
     Principal principal = credentialsComponent.authenticate(new Credential(email, password));
@@ -98,17 +93,15 @@ public class TestCredentialsComponent
   }
   
   @Test
-  public void testAuthorize() throws CredentialException
+  public void testAuthorize() throws CredentialException, JSONException
   {
     Principal principal = mock(Principal.class);
     when(principal.getName()).thenReturn(email);
     
-    DBObject query = new BasicDBObject(2);
-    query.put("name", "admin");
-    query.put("members", email);
-    
-    DBObject value = new BasicDBObject();
-    when(groups.findOne(query)).thenReturn(value);
+    Set<String> value = new HashSet<>();
+    value.add(email);
+    when(groupsService.getUsersInGroup("admin")).thenReturn(value);
+    when(groupsService.getUsersInGroup("root")).thenReturn(Collections.emptySet());
     
     assertTrue(credentialsComponent.authorize(principal, "admin"));
     assertFalse(credentialsComponent.authorize(principal, "root"));

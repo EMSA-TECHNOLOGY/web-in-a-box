@@ -141,7 +141,7 @@ public class CredentialsComponent extends AbstractComponent implements Credentia
 	}
 	
 	@Reference(unbind = "-")
-	public void bindGroupService(GroupsService groupsService)
+	public void bindGroupsService(GroupsService groupsService)
 	{
 	  this.groupsService = groupsService;
 	}
