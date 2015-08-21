@@ -1,11 +1,9 @@
 package net.springfieldusa.log.comp;
 
-import java.util.Collection;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
