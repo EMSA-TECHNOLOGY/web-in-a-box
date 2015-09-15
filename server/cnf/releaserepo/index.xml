@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1435350002496" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1435350002000" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.springfieldusa.comp"/>
@@ -141,7 +141,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -260,7 +260,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -352,7 +352,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -441,7 +441,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -558,7 +558,7 @@
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -653,7 +653,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -753,7 +753,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -842,7 +842,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -936,11 +936,11 @@
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
     <requirement namespace="osgi.service">
-      <directive name="filter" value="(&amp;(objectClass=org.eclipselabs.emongo.MongoDatabaseProvider)(alias=data))"/>
+      <directive name="filter" value="(objectClass=org.eclipselabs.emongo.MongoDatabaseProvider)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1029,7 +1029,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1105,7 +1105,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1159,7 +1159,7 @@
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1214,7 +1214,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1272,7 +1272,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1338,7 +1338,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1410,7 +1410,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>
@@ -1465,7 +1465,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
-      <directive name="filter" value="(&amp;(osgi.extender=osgi.ds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
       <directive name="effective" value="active"/>
     </requirement>
   </resource>

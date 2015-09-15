@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1435352579687" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1440187828000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.auth0.jwt"/>
@@ -334,6 +334,125 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.nvidia.gpuwa.ldap"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.0.201508041443"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="b5408018c751a07f76ab0667080d417de57371b47893f6b02e11b4e6515618a1"/>
+      <attribute name="url" value="com.nvidia.gpuwa.ldap/com.nvidia.gpuwa.ldap-0.0.0.jar"/>
+      <attribute name="size" type="Long" value="35093"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="com.nvidia.gpuwa.ldap"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201508041443"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="com.nvidia.gpuwa.ldap"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201508041443"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.nvidia.gpuwa.ldap"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="com.nvidia.gpuwa.ldap"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201508041443"/>
+      <directive name="uses" value="javax.naming,javax.naming.directory,javax.naming.ldap"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="com.nvidia.gpuwa.ldap.LdapLocatorService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="com.nvidia.gpuwa.ldap.LdapService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="com.nvidia.gpuwa.ldap.LdapLocatorService"/>
+      <directive name="uses" value="com.nvidia.gpuwa.ldap"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="com.nvidia.gpuwa.ldap.LdapService"/>
+      <attribute name="ldapFactory" value="com.sun.jndi.ldap.LdapCtxFactory"/>
+      <attribute name="com.sun.jndi.ldap.connect.pool.timeout" value="10000"/>
+      <attribute name="groupCacheTimeout" type="Long" value="1800000"/>
+      <attribute name="com.sun.jndi.ldap.connect.pool.prefsize" type="Long" value="0"/>
+      <attribute name="userCacheTimeout" type="Long" value="1800000"/>
+      <attribute name="userCacheSize" type="Long" value="1024"/>
+      <attribute name="userSearchDN" value="OU=Users,OU=Accounts,DC=nvidia,DC=com"/>
+      <attribute name="url" value="ldap://ldaphq.nvidia.com"/>
+      <attribute name="groupCacheSize" type="Long" value="1024"/>
+      <attribute name="com.sun.jndi.ldap.connect.timeout" value="10000"/>
+      <attribute name="password" value="30s'JU7)@C6L65e"/>
+      <attribute name="referral" value="follow"/>
+      <attribute name="com.sun.jndi.ldap.connect.pool" value="true"/>
+      <attribute name="baseDN" value="DC=nvidia,DC=com"/>
+      <attribute name="accountSearchDN" value="OU=Accounts,DC=nvidia,DC=com"/>
+      <attribute name="user" value="svcauthnvsecurity"/>
+      <attribute name="authentication" value="simple"/>
+      <directive name="uses" value="com.nvidia.gpuwa.ldap"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.nvidia.gpuwa.ldap)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.nvidia.gpuwa.util)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.naming)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.naming.directory)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.naming.ldap)"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=com.nvidia.gpuwa.ldap.LdapLocatorService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=com.nvidia.gpuwa.ldap.LdapLocatorService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.nvidia.gpuwa.util"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.0.201508041443"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="a99fe5e77d59341149684724459efede8c5ccbb6692102dfda078703076c8905"/>
+      <attribute name="url" value="com.nvidia.gpuwa.util/com.nvidia.gpuwa.util-0.0.0.jar"/>
+      <attribute name="size" type="Long" value="8892"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="com.nvidia.gpuwa.util"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201508041443"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="com.nvidia.gpuwa.util"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201508041443"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.nvidia.gpuwa.util"/>
+      <attribute name="version" type="Version" value="1.0.6"/>
+      <attribute name="bundle-symbolic-name" value="com.nvidia.gpuwa.util"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201508041443"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
   </resource>
   <resource>
